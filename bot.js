@@ -1141,3 +1141,14 @@ client.on('message', message => {
       message.channel.send({embed}); // N3k4a Is the one
         }
     }); // Toxic Code
+
+client.on('message', message => {
+    if (message.content === "-roles") {
+		if(!message.channel.guild) return;
+        var roles = message.guild.roles.map(roles => `${roles.name}, `).join(' ')
+        const embed = new Discord.RichEmbed()
+        .setColor('RANDOM')
+        .addField('Roles:',`**[${roles}]**`)
+        message.channel.sendEmbed(embed);
+    }
+});
