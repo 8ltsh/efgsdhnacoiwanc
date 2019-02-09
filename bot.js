@@ -1090,3 +1090,49 @@ client.on('message',async message => {
 
 
  client.login(process.env.BOT_TOKEN); 
+
+lient.on("guildMemberAdd", member => {
+  member.createDM().then(function (channel) {
+  return channel.send(`نورت السيرفر يرجا قرأة القوانين
+ ${member}  
+ `) 
+}).catch(console.error)
+})
+
+
+client.on('message', message => {
+    if (message.content === ('#bot')) {
+    message.channel.send({
+        embed: new Discord.RichEmbed()
+            .setAuthor(client.user.username,client.user.avatarURL)
+            .setThumbnail(client.user.avatarURL)
+            .setColor('RANDOM')
+            .addField('**Bot Ping**🚀 :' , [`${Date.now() - message.createdTimestamp}` + 'MS'], true)
+            .addField('**Servers**📚 :', [client.guilds.size], true)
+            .addField('**Channels**📝 :' , `[ ${client.channels.size} ]` , true)
+            .addField('**Users**🔮 :' ,`[ ${client.users.size} ]` , true)
+            .addField('**Bot Name**🔰 :' , `[ ${client.user.tag} ]` , true)
+            .addField('**Bot Owner**👑 :' , `[<@486322208109494282>]` , true)
+            .setFooter(message.author.username, message.author.avatarURL)
+    })
+}
+});
+
+client.on('message', message => {
+    var prefix = '#'
+    if (message.content.startsWith(prefix + "avatar")) {
+        var mentionned = message.mentions.users.first();
+    var x5bzm;
+      if(mentionned){
+          var x5bzm = mentionned;
+      } else {
+          var x5bzm = message.author;
+          
+      }
+        const embed = new Discord.RichEmbed()
+        .setColor("RANDOM")
+        .setImage(`${x5bzm.avatarURL}`)
+      message.channel.sendEmbed(embed);
+    }
+});
+
