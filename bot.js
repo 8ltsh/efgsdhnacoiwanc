@@ -1086,15 +1086,6 @@ client.on('message',async message => {
  client.login(process.env.BOT_TOKEN); 
 
 
-lient.on("guildMemberAdd", member => {
-  member.createDM().then(function (channel) {
-  return channel.send(`نورت السيرفر يرجا قرأة القوانين
- ${member}  
- `) 
-}).catch(console.error)
-})
-
-
 client.on('message', message => {
     if (message.content === ('#bot')) {
     message.channel.send({
