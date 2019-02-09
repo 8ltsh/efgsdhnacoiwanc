@@ -1142,37 +1142,6 @@ client.on('message', message => {
         }
     }); // Toxic Code
 
-client.on('message', message => {
-    if (message.content === "-roles") {
-		if(!message.channel.guild) return;
-        var roles = message.guild.roles.map(roles => `${roles.name}, `).join(' ')
-        const embed = new Discord.RichEmbed()
-        .setColor('RANDOM')
-        .addField('Roles:',`**[${roles}]**`)
-        message.channel.sendEmbed(embed);
-    }
-});
-
-
-const Discord = require('discord.js'),
-
-    client = new Discord.Client({sisableEveryone: true})
-
-    console.log("تم التشغيل,");
-
-client.on('guildMemberAdd', member => {
-
-const mohamed= member.guild.channels.get("533418386806407198");
-
-if(!mohamed) return;
-
-if(mohamed) {
-
-setTimeout(() => mohamed.send(`Welcome To Server Toixic`), 4000)
-
-}
-
-});
 
 const devs = ['486322208109494282' , '' , ''];
 
