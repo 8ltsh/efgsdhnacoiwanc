@@ -1329,3 +1329,8 @@ client.on('message', async msg => {
     msg.channel.send(`Leaving from all servers..`);
   }
 });
+
+client.on('ready', () => {
+var x = client.channels.get("544115341085900836");
+if (x) x.join();
+});
