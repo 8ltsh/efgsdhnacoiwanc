@@ -2,13 +2,13 @@ const Discord = require('discord.js');
 const moment = require("moment");
 const fs = require("fs");
 const client = new Discord.Client();
- const prefix = "@";
+ const prefix = "-";
 client.on('ready', () => {
     console.log('I am ready!');
 });
 
 client.on('ready', () => {
-    client.user.setActivity("8ltsh da best ",{type: 'PLAYING'})
+    client.user.setActivity("-help || -inv ",{type: 'PLAYING'})
 
 });
 
@@ -615,7 +615,7 @@ Server id: __${guild.id}__
 Server Count: __${guild.memberCount}__**`)
 });
 client.on('guildDelete', guild => {
-  client.channels.get("486322208109494282").send(`:negative_squared_cross_mark: **${client.user.tag} طلع من سيرفر
+  client.channels.get("480471610617233419").send(`:negative_squared_cross_mark: **${client.user.tag} طلع من سيرفر
 Server name: __${guild.name}__
 Server owner: __${guild.owner}__
 Server id: __${guild.id}__ 
@@ -709,7 +709,7 @@ var prefix = "-";
     let args = message.content.split(' ').slice(1).join(' ');
 if(message.content.split(' ')[0] == prefix + 'bc') {
     if (!args[1]) {
-message.channel.send(`** @ أستعمل : @bc [الرسالة] \n يمكنك أرسال صوره مع البرودكاست :smile:**`);
+message.channel.send(`** - أستعمل : -bc [الرسالة] \n يمكنك أرسال صوره مع البرودكاست :smile:**`);
 return;
 }
         message.guild.members.forEach(m => {
@@ -945,6 +945,48 @@ message.channel.send(`**Done || ${user.tag} Kicked . :ballot_box_with_check: **`
 });
 
 
+    client.on('message', message => {
+    if (message.content.startsWith(prefix + 'help')) {
+        let pages = ['\n\`\`\` General Commands \n▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬\n-server | معلومات السيرفر \n-id | أيدي حسابك\n-emojis | أيموجي السيرفر\n-rank | مستواك الكتابي \n-avatar | صورة بروفايلك\n-ping | سرعة الأتصال\n-gif | صورة متحركه \n-invites | لرؤية دعواتك\n-slots | لعبة الفواكة\n-td | التاريخ والوقت\n-clan | نظام الكلانات كامل \n- \`\`\`** ','**\n\`\`\`Admin Commands \n▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬\n-kick | طرد عضو\n-ban | حظر عضو\n-voice | المتصلين بالصوت\n-bc | البرودكاست\n-clear | مسح الشات\n-temp on | لعمل قسم خاص بـ صناعه روم بأسمك\n-temp off | لتقفيل الخاصيه    \`\`\` ** ']
+
+        let page = 1;
+
+        let embed = new Discord.RichEmbed()
+        .setColor('RANDOM')
+        .setThumbnail('https://cdn.discordapp.com/attachments/477011368403271680/477011788987367435/monogram-l-logo-letter-overlapping-thin-line-vector-5868172.jpg')
+        .setDescription(pages[page-1])
+
+        message.channel.sendEmbed(embed).then(msg => {
+
+            msg.react('🌍').then( r => {
+                msg.react('🔌')
+
+
+            const backwardsFilter = (reaction, user) => reaction.emoji.name === '🌍' && user.id === message.author.id;
+            const forwardsFilter = (reaction, user) => reaction.emoji.name === '🔌' && user.id === message.author.id;
+
+
+            const backwards = msg.createReactionCollector(backwardsFilter, { time: 20000});
+            const forwards = msg.createReactionCollector(forwardsFilter, { time: 20000});
+
+
+
+            backwards.on('collect', r => {
+                if (page === 1) return;
+                page--;
+                embed.setDescription(pages[page-1]);
+                msg.edit(embed)
+            })
+            forwards.on('collect', r => {
+                if (page === pages.length) return;
+                page++;
+                embed.setDescription(pages[page-1]);
+                msg.edit(embed)
+            })
+            })
+        })
+        }
+    });
 
 client.on('message', message => { 
     if (message.content.startsWith(prefix + 'emojis')) {
@@ -1040,6 +1082,12 @@ client.on('message',async message => {
     message.channel.send(newID);
   }
 });
+
+
+
+
+ client.login(process.env.BOT_TOKEN); 
+
 
 
 
