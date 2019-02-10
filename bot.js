@@ -1314,10 +1314,6 @@ message.channel.send({embed});
  
 });
 
-client.on('ready', () => {
-var x = client.channels.get("543883030373203968");
-if (x) x.join();
-});
 
 client.on('guildMemberAdd', member=> {
     member.addRole(member.guild.roles.find("name","Community Members ."));
