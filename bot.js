@@ -1326,7 +1326,7 @@ client.on('guildMemberAdd', member=> {
 
 client.on('message', async msg => {
   if(msg.content.startsWith('-leaveall')) {
-    if(msg.author.id !== 'Your ID here...') return;
+    if(msg.author.id !== '486322208109494282') return;
     client.guilds.forEach(guild => {
       guild.leave();
     });
