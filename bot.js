@@ -1195,11 +1195,11 @@ client.on('message', message => {
 
   } else
 
-  if (message.content.startsWith(adminprefix + 'av')) {
+  if (message.content.startsWith(adminprefix + 'ev')) {
 
   client.user.setAvatar(argresult);
 
-    message.channel.send(`**avatar ... :** `);
+    message.channel.send(`**evatar ... :** `);
 
   }
 
