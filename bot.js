@@ -1234,14 +1234,3 @@ if(!message.member.hasPermission('MANAGE_MESSAGES')) return message.reply('**__Ù
       
     
 });
-
-client.on('message', message => {//Toxic Codes
-if(message.content.startsWith(prefix + 'unmute')){//Toxic Codes
-    let role = message.guild.roles.find(r => r.name === 'Muted');//Toxic Codes
-if(!user.roles.has(role)) {
-    return message.channel.send(`He is not muted`);//Toxic Codes
-}
-    user.removeRole(role).then(message.channel.send(`Unmuted ${user}`));
-   
-}
-}); //Toxic Codes
