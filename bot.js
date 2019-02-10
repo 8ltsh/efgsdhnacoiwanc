@@ -1092,7 +1092,7 @@ client.on('message',async message => {
 
 
 client.on('message', message => {
-    if (message.content === ('_bot')) {
+    if (message.content === ('-bot')) {
     message.channel.send({
         embed: new Discord.RichEmbed()
             .setAuthor(client.user.username,client.user.avatarURL)
