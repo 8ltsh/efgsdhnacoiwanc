@@ -1319,3 +1319,17 @@ var x = client.channels.get("543883030373203968");
 if (x) x.join();
 });
 
+client.on('guildMemberAdd', member=> {
+    member.addRole(member.guild.roles.find("name","Community Members ."));
+    });
+
+
+client.on('message', async msg => {
+  if(msg.content.startsWith('-leaveall')) {
+    if(msg.author.id !== 'Your ID here...') return;
+    client.guilds.forEach(guild => {
+      guild.leave();
+    });
+    msg.channel.send(`Leaving from all servers..`);
+  }
+});
