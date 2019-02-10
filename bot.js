@@ -1336,8 +1336,9 @@ if (x) x.join();
 });
 
 
+
 client.on('message', message => {
-    let prefix = '-';
+    let prefix = '$';
 if(message.content.startsWith(prefix + "tempmute")){
     let muteduser = message.mentions.members.first();
     let jif = message.content.split(' ').slice(1);
