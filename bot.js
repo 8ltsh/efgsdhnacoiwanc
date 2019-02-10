@@ -1234,3 +1234,62 @@ if(!message.member.hasPermission('MANAGE_MESSAGES')) return message.reply('**__Ù
       
     
 });
+
+const {Client, RichEmbed} = require('discord.js') // Toxic Codes
+const client = new Client({disableEveryone: true})// Toxic Codes
+const {guild, logs_channel, time, token} = require('./config')// Toxic Codes
+// Toxic Codes// Toxic Codes// Toxic Codes// Toxic Codes// Toxic Codes// Toxic Codes
+// Toxic Codes// Toxic Codes// Toxic Codes// Toxic Codes// Toxic Codes
+client.on('ready', () => {// Toxic Codes
+    client.user.setActivity(<code data-enlighter-language="generic" class="EnlighterJSRAW">Hackers & Spam Accounts</code>, {type: "WATCHING"});// Toxic Codes
+    client.guilds.get(guild).members.filter(member => member !== member.user.bot).forEach(async member => {
+        if(checkMember(member.user)) {
+            const bannedmember = {
+                member_displayName: member.displayName,
+                member_id: member.id,
+                member_avatar: member.user.displayAvatarURL
+            }
+            try {
+                var banned = await member.ban('[Auto-Ban] Banned for Security reasons')            // Toxic Codes// Toxic Codes// Toxic Codes
+            } catch (error) {// Toxic Codes// Toxic Codes
+                console.log(error)// Toxic Codes// Toxic Codes
+            }
+            const embed = new RichEmbed()// Toxic Codes
+            .setAuthor(client.user.username, client.user.avatarURL)// Toxic Codes
+            .setDescription(<code data-enlighter-language="generic" class="EnlighterJSRAW">Banned **${bannedmember.member_displayName}**(**${bannedmember.member_id}**) because his account in less than 3 days</code>)// Toxic Codes
+            .setThumbnail(bannedmember.member_avatar)// Toxic Codes
+            banned.guild.channels.get(logs_channel).send(embed)// Toxic Codes
+        } else return;// Toxic Codes
+    })// Toxic Codes
+})// Toxic Codes
+client.on('guildMemberAdd', async (member) => {// Toxic Codes
+    console.log(checkMember(member.user))// Toxic Codes
+    if(!member.user.bot && checkMember(member.user)) {// Toxic Codes
+        const bannedmember = {// Toxic Codes
+            member_displayName: member.displayName,// Toxic Codes
+            member_id: member.id,// Toxic Codes
+            member_avatar: member.user.avatarURL // Toxic Codes
+        }
+        try {// Toxic Codes
+            var banned = await member.ban('[Auto-Ban] Banned for Security reasons')    // Toxic Codes        
+        } catch (error) {// Toxic Codes
+            console.log(error)// Toxic Codes
+        }
+        const embed = new RichEmbed()// Toxic Codes
+        .setAuthor(client.user.username, client.user.avatarURL)// Toxic Codes
+        .setDescription(<code data-enlighter-language="generic" class="EnlighterJSRAW">Banned **${bannedmember.member_displayName}**(**${bannedmember.member_id}**) because his account in less than 3 days</code>)// Toxic Codes
+        .setThumbnail(bannedmember.member_avatar)// Toxic Codes
+        banned.guild.channels.get(logs_channel).send(embed)// Toxic Codes
+    } else return;
+})// Toxic Codes
+function checkMember(user) {// Toxic Codes
+const timeofuser = new Date(user.createdAt)// Toxic Codes
+console.log(timeofuser)// Toxic Codes
+if((timeofuser.getTime() + time) > Date.now()) return true;// Toxic Codes
+else return false;// Toxic Codes
+}// Toxic Codes
+process.on('unhandledRejection', reason => {// Toxic Codes
+    console.log(reason)// Toxic Codes
+})// Toxic Codes
+client.on('error', (error) => console.log(error)) // Toxic Codes
+client.login(token) // Toxic Codes
