@@ -608,14 +608,14 @@ client.on('message',async message => {
 
 
   client.on('guildCreate', guild => {
-client.channels.get("544243371439292426").send(`:white_check_mark: **${client.user.tag} دخل سيرفر جديد
+client.channels.get("544486231065493514").send(`:white_check_mark: **${client.user.tag} دخل سيرفر جديد
 Server name: __${guild.name}__
 Server owner: __${guild.owner}__
 Server id: __${guild.id}__ 
 Server Count: __${guild.memberCount}__**`)
 });
 client.on('guildDelete', guild => {
-  client.channels.get("544243371439292426").send(`:negative_squared_cross_mark: **${client.user.tag} طلع من سيرفر
+  client.channels.get("544486231065493514").send(`:negative_squared_cross_mark: **${client.user.tag} طلع من سيرفر
 Server name: __${guild.name}__
 Server owner: __${guild.owner}__
 Server id: __${guild.id}__ 
