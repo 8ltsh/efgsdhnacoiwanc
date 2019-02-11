@@ -1356,3 +1356,27 @@ client.on('message', function(message) {
     client.channels.get("544486231065493514").send({embed:Dark});
     }
 });
+
+
+client.on('message', message =>{
+  if (message.content.startsWith(prefix + "mute")){
+       if(!message.channel.guild) return message.reply('** This command only for servers**');
+if (!message.mentions.members.first()) return;
+    if (!message.channel.guild) return;
+    if (!message.member.hasPermission("MANAGE_MESSAGES")) return;
+       message.channel.send(`muted ! `+ `<@`+message.mentions.members.first().user.id+`>`);
+    message.channel.overwritePermissions(message.mentions.members.first().user.id , {SEND_MESSAGES : false})
+  }
+});
+client.on('message', message =>{
+  if (message.content.startsWith(prefix + "unmute")){
+       if(!message.channel.guild) return message.reply('** This command only for servers**');
+if (!message.mentions.members.first()) return;
+    if (!message.channel.guild) return;
+    if (!message.member.hasPermission("MANAGE_MESSAGES")) return;
+
+   message.channel.send(`unmuted ! `+ `<@`+message.mentions.members.first().user.id+`>`);
+    message.channel.overwritePermissions(message.mentions.members.first().user.id , {SEND_MESSAGES : true})
+    console.log('[mute] Send By: ' + message.author.username)
+  }
+});
