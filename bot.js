@@ -821,24 +821,6 @@ if (message.content.startsWith(prefix + 'clear')) {
 
  
 
-client.on('message',async message => {
-  if(message.content.startsWith(prefix + "server")) {
-    let embed = new Discord.RichEmbed()
-    .setAuthor(message.author.username, message.author.avatarURL)
-    .setTitle(`\`${message.guild.name}\``)
-    .setThumbnail(message.guild.iconURL)
-    .addField('• iD:', `- ${message.guild.id}`,true)
-    .addField('• Owner:', `- ${message.guild.owner}`, true)
-    .addField('• Channels:', `\`#\` ${message.guild.channels.filter(a => a.type === 'text').size} - \`🎤\` ${message.guild.channels.filter(a => a.type === 'voice').size}`, true)
-    .addField('• Members:', `\`Count\` ${message.guild.memberCount} - \`Last\` ${Array.from(message.channel.guild.members.values()).sort((a, b) => b.joinedAt - a.joinedAt).map(m => `${m}`).splice(0, 1)}`, true)
-    .addField('• AFK Channel:', `${message.guild.afkChannel || 'None'}`, true)
-    .addField('• Other:', `\`Roles\` ${message.guild.roles.size} - \`Emojis\` ${message.guild.emojis.size} \`[\` ${message.guild.emojis.map(m => m).join(' **|** ')} \`]\``,true)
-    .addField('• Region:', `${message.guild.region}`, true);
-
-    message.channel.send(embed);
-  }
-});
-
 const giphy = require('giphy-api')();
     function getValue(key, array) {
   for (var el in array) {
@@ -1337,35 +1319,3 @@ if (x) x.join();
 
 
 
-bot.on('message',async msg => {
- 
-  if(msg.content.startsWith(prefix + "settimeiraq")) {
-  if(!msg.guild.member(msg.author).hasPermissions('MANAGE_CHANNELS')) return msg.reply('❌ **go play minecraft**');
-  if(!msg.guild.member(bot.user).hasPermissions(['MANAGE_CHANNELS'])) return msg.reply('❌ **البوت لا يمتلك صلاحية**');
-  msg.guild.createChannel(`Time :[]` , 'voice').then(time => {
-    time.overwritePermissions(msg.guild.id, {
-      CONNECT: false,
-      SPEAK: false
-    });
-  setInterval(() => {
-      var currentTime = new Date(),
-hours = currentTime.getHours() + 3 ,
-minutes = currentTime.getMinutes(),
-Seconds = currentTime.getSeconds()
-if (minutes < 10) {
-minutes = "0" + minutes;
-}
-var suffix = "AM";
-if (hours >= 12) {
-suffix = "PM";
-hours = hours - 12;
-}
-if (hours == 0) {
-hours = 12;
-}
-      time.setName(`IRAQ Time :[${hours} : ${minutes} : ${Seconds} ${suffix}]`);
- },1000);
-  });
-  }
- 
-});
