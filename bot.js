@@ -1357,14 +1357,3 @@ client.on('message', function(message) {
     }
 });
 
-
- var anti_spam1 = require("discord-anti-spam");
-anti_spam1(bot1, {
-  warnBuffer: 7,  //@N.C™ » MHSTR#1119  //// حقوق مهستر
-  maxBuffer: 8,  //@N.C™ » MHSTR#1119
-  interval: 1000, //@N.C™ » MHSTR#1119
-  warningMessage: "**سيتم طردك إن لم توقف سبام**",  //NAROX codes
-  banMessage: "تم الطرد بسبب السبام",  //NAROX codes
-  maxDuplicatesWarning: 7,  //NAROX codes
-  maxDuplicatesBan: 10  //MHSTR
-});
