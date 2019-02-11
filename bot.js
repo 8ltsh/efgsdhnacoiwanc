@@ -1496,166 +1496,58 @@ msg.guild.createChannel(args.join(' '), 'category');
 
 
 
-
-const say = JSON.parse(fs.readFileSync('./say.json' , 'utf8'));
-//Perfect Say Code
-client.on('message', async message => {
-    let messageArray = message.content.split(" ");
-   if(message.content.startsWith(prefix + "setSay")) {
-    let filter = m => m.author.id === message.author.id;
-    let role;
+var stopReacord = true;
+var reactionRoles = [];
+var definedReactionRole = null;
  
-    if(!message.member.hasPermission("MANAGE_GUILD")) return message.channel.send('You don\'t have permission').then(msg => {
-       msg.delete(4500);
-       message.delete(4500);
-    });
-   
-    message.channel.send(':pencil: **| Please Type The Role Required To Type The Say Command ... :pencil2: **').then(msg => {
- 
-        message.channel.awaitMessages(filter, {
-          max: 1,
-          time: 90000,
-          errors: ['time']
-        })
-   
-        .then(collected => {
-            collected.first().delete();
-            role = collected.first().content;
-            let replymsg;
-            msg.edit(':scroll: **| Now Please Type The Answer If He Dont Have The Required Role ... :pencil2: **').then(msg => {
-     
-                message.channel.awaitMessages(filter, {
-                  max: 1,
-                  time: 90000,
-                  errors: ['time']
-                })
-                .then(collected => {
-                    collected.first().delete();
-                    replymsg = collected.first().content;
-                    msg.edit('✅ **| Successfully Setup !...  **').then(msg => {
-       
-                      message.channel.awaitMessages(filter, {
-                        max: 1,
-                        time: 90000,
-                        errors: ['time']
-                      })
-                   
-      let embed = new Discord.RichEmbed()
-      .setTitle('**Done The Say Code Has Been Setup**')
-      .addField('Say Role:', `${role}`)
-      .addField('Say Role Reply:', `${replymsg}`)
-      .addField('Requested By:', `${message.author}`)
-      .setThumbnail(message.author.avatarURL)
-      .setFooter(`${client.user.username}`)
-      .setColor('RANDOM')
-      say[message.guild.id] = {
-      onoff: 'On',
-      sayembed: 'On',
-      reply: replymsg,
-      sayrole: role
-      },
-      message.channel.sendEmbed(embed)
-      fs.writeFile("./say.json", JSON.stringify(say), (err) => {
-      if (err) console.error(err)
-    })
-      })
-    })
-   })
- })
+client.on("message", async message => {
+    const args = message.content.slice(prefix.length).trim().split(/ +/g);
+    const command = args.shift().toLowerCase();
+    if(message.author.bot) return;
+    if(message.content.indexOf(prefix) !== 0) return;
+    if (command == "autoc") {
+      if(!message.channel.guild) return message.reply(`**this ~~command~~ __for servers only__**`);
+      if(!message.member.hasPermission("ADMINISTRATOR")) return message.channel.send("sorry you can't do this");
+      if(!args[0] || args[1]) return message.channel.send(`\`\`\`${prefix}autoc <role-name>\`\`\``);
+      var role = message.guild.roles.find( role => { return role.name == args[0] });
+      if(!role) return message.channel.send(`no role with name ${definedRoleName} found, make sure you entered correct name`);
+      if(definedReactionRole != null  || !stopReacord) return message.channel.send("another reaction role request is running");
+      message.channel.send(`now go and add reaction in the message you want for role ${role.name}`);
+      definedReactionRole = role;
+      stopReacord = false;
+    }    
 })
-   }})
-   
-   client.on('message', message => {
-    let args = message.content.split(" ").slice(1);
-if(message.content.startsWith(prefix + 'embedsay')) {
-    if(say[message.guild.id].onoff === 'Off') return;
-    if(say[message.guild.id].sayembed === 'Off') return;
-    let staff = message.guild.member(message.author).roles.find('name' , `${say[message.guild.id].sayrole}`);
-    if(!staff) return message.channel.send(`${say[message.guild.id].replymsg}`)    
-let embed = new Discord.RichEmbed()
-.setDescription(args)
-message.channel.sendEmbed(embed)
-}})
- 
-     
-client.on('message', message => {
- 
-  if(message.content.startsWith(prefix + "toggleSay")) {
-      if(!message.channel.guild) return message.reply('**This Command Only For Servers**');
-      if(!message.member.hasPermission('MANAGE_GUILD')) return message.channel.send('**Sorry But You Dont Have Permission** `MANAGE_GUILD`' );
-      if(!say[message.guild.id]) say[message.guild.id] = {
-        onoff: 'Off'
-      }
-        if(say[message.guild.id].onoff === 'Off') return [message.channel.send(`**The Say Is __𝐎𝐍__ !**`), say[message.guild.id].onoff = 'On']
-        if(say[message.guild.id].onoff === 'On') return [message.channel.send(`**The Say Is __𝐎𝐅𝐅__ !**`), say[message.guild.id].onoff = 'Off']
-        fs.writeFile("./say.json", JSON.stringify(say), (err) => {
-          if (err) console.error(err)
-          .catch(err => {
-            console.error(err);
-        });
-          });
-        }
-       
-      })
-     
-      client.on('message', message => {
- 
-        if(message.content.startsWith(prefix + "toggleEmbed")) {
-            if(!message.channel.guild) return message.reply('**This Command Only For Servers**');
-            if(!message.member.hasPermission('MANAGE_GUILD')) return message.channel.send('**Sorry But You Dont Have Permission** `MANAGE_GUILD`' );
-            if(!say[message.guild.id]) say[message.guild.id] = {
-              embed: 'Off'
-            }
-              if(say[message.guild.id].sayembed === 'Off') return [message.channel.send(`**The Say Embed Is __𝐎𝐍__ !**`), say[message.guild.id].sayembed = 'On']
-              if(say[message.guild.id].sayembed === 'On') return [message.channel.send(`**The Say Embed Is __𝐎𝐅𝐅__ !**`), say[message.guild.id].sayembed = 'Off']
-              fs.writeFile("./say.json", JSON.stringify(say), (err) => {
-                if (err) console.error(err)
-                .catch(err => {
-                  console.error(err);
-              });
-                })
-              }
-             
-            })
- 
- 
-            client.on('message', message => {
- 
-        if (message.author.bot) return;
-     
-        if (!message.content.startsWith(prefix)) return;
-     
-     
-        let command = message.content.split(" ")[0];
-     
-        command = command.slice(prefix.length);
-     
-     
-        let args = message.content.split(" ").slice(1);
-let embed = new Discord.RichEmbed()
-.setTitle(args)
-     
-     
-        if (command === "say") {
-         
-          if(say[message.guild.id].onoff === 'Off') return;
-          let staff = message.guild.member(message.author).roles.find('name' , `${say[message.guild.id].sayrole}`);
-          if(!staff) return message.channel.send(`${say[message.guild.id].replymsg}`)      
-                message.delete()
-                if(!say[message.guild.id].sayembed === 'On') return message.sendEmbed(say)
-                message.channel.sendMessage(args)
-        }})
-     
-client.on('message', message => {
-  if(message.content.startsWith(prefix + "infoSay")) {
-let embed = new Discord.RichEmbed()
-.addField('Say Status', `${say[message.guild.id].onoff}`)
-.addField('Say Role:', `${say[message.guild.id].sayrole}`)
-.addField('Say Embed Status:', `${say[message.guild.id].embed}`)
-.addField('Requested By', `${message.author}`)
-.setThumbnail('https://a.top4top.net/p_10555ubbl1.png')
-.setImage(message.author.avatarURL)
-.setFooter(`${client.user.username}`)
-.setColor('RANDOM')
-message.channel.sendEmbed(embed)
-  }})
+client.on('raw', raw => {
+  if (!['MESSAGE_REACTION_ADD', 'MESSAGE_REACTION_REMOVE'].includes(raw.t)) return;
+  var channel = client.channels.get(raw.d.channel_id);
+  if (channel.messages.has(raw.d.message_id)) return;
+  channel.fetchMessage(raw.d.message_id).then(message => {
+    var reaction = message.reactions.get( (raw.d.emoji.id ? `${raw.d.emoji.name}:${raw.d.emoji.id}` : raw.d.emoji.name) );
+    if (raw.t === 'MESSAGE_REACTION_ADD') return client.emit('messageReactionAdd', reaction, client.users.get(raw.d.user_id));
+    if (raw.t === 'MESSAGE_REACTION_REMOVE') return client.emit('messageReactionRemove', reaction, client.users.get(raw.d.user_id));
+  });
+});
+client.on('messageReactionAdd', (reaction, user) => {
+    if(user.id == client.user.id) return;
+    if(!stopReacord) {
+      var done = false;
+      reactionRoles[reaction.message.id] = { role: definedReactionRole, message_id: reaction.message.id, emoji: reaction.emoji};
+      stopReacord =  true;
+      definedReactionRole = null;
+      reaction.message.react(reaction.emoji.name)
+      .catch(err => {done = true; reaction.message.channel.send(`sorry i can't use this emoji but the reaction role done! anyone react will get the role!`)})
+     if(done) reaction.remove(user);
+   } else {
+     var request = reactionRoles[reaction.message.id];
+     if(!request) return;
+     if(request.emoji.name != reaction.emoji.name) return reaction.remove(user);
+     reaction.message.guild.members.get(user.id).addRole(request.role);
+   }
+})
+client.on('messageReactionRemove', (reaction, user) => {
+ if(user.id == client.user.id) return;
+ if(!stopReacord) return;
+ let request = reactionRoles[reaction.message.id];
+ if(!request) return;
+ reaction.message.guild.members.get(user.id).removeRole(request.role);
+});
