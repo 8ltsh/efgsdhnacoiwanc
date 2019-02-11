@@ -1459,3 +1459,36 @@ max: 1
         })
     }
 })
+
+
+
+
+client.on('message', msg => {
+var prefix = "-";
+  if(!msg.guild) return;
+    if (msg.content.startsWith(prefix +'cy')) {
+     let args = msg.content.split(" ").slice(1);
+    if(!msg.channel.guild) return msg.channel.send('**هذا الأمر فقط للسيرفرات**').then(m => m.delete(5000));
+let ra3d = new Discord.RichEmbed()
+.setThumbnail(msg.author.avatarURL)
+.setDescription(`ان كنت تريد انشاء للمستند اظغط علي الايموجي📝`)                                                                                                                                                                       
+.setFooter('لديك دقيقه للاختيار')
+msg.channel.send(ra3d).then(message => {
+    
+    
+ message.react('📝').then(r=>{
+                              
+    
+ let Category = (reaction, user) => reaction.emoji.name === '📝' && user.id === msg.author.id;
+
+ let cy  = message.createReactionCollector(Category, { time: 60000 });
+
+cy.on("collect", r => {
+msg.guild.createChannel(args.join(' '), 'category');
+    msg.channel.send(`☑ تم انشاء المستند بنجاح : \`${args}\``)
+    msg.delete();
+})
+})
+})
+}
+});
