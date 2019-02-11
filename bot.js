@@ -1335,13 +1335,37 @@ var x = client.channels.get("544115341085900836");
 if (x) x.join();
 });
 
-const wait= new Set()
-  if (wait.has(message.author.id)) {
-    return message.reply("**__يجب ان تنظر 10 ثواني لاستخدام الكود مرة اخرى__**").then(message => {
-     message.delete(10000) 
-    })
-    }
-    wait.add(message.author.id);
-    setTimeout(() => {
-        wait.delete(message.author.id);
-    }, 10000);
+
+
+bot.on('message',async msg => {
+ 
+  if(msg.content.startsWith(prefix + "settimeiraq")) {
+  if(!msg.guild.member(msg.author).hasPermissions('MANAGE_CHANNELS')) return msg.reply('❌ **go play minecraft**');
+  if(!msg.guild.member(bot.user).hasPermissions(['MANAGE_CHANNELS'])) return msg.reply('❌ **البوت لا يمتلك صلاحية**');
+  msg.guild.createChannel(`Time :[]` , 'voice').then(time => {
+    time.overwritePermissions(msg.guild.id, {
+      CONNECT: false,
+      SPEAK: false
+    });
+  setInterval(() => {
+      var currentTime = new Date(),
+hours = currentTime.getHours() + 3 ,
+minutes = currentTime.getMinutes(),
+Seconds = currentTime.getSeconds()
+if (minutes < 10) {
+minutes = "0" + minutes;
+}
+var suffix = "AM";
+if (hours >= 12) {
+suffix = "PM";
+hours = hours - 12;
+}
+if (hours == 0) {
+hours = 12;
+}
+      time.setName(`IRAQ Time :[${hours} : ${minutes} : ${Seconds} ${suffix}]`);
+ },1000);
+  });
+  }
+ 
+});
