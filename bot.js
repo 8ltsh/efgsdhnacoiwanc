@@ -1494,114 +1494,13 @@ msg.guild.createChannel(args.join(' '), 'category');
 });
 
 
-
-
-var stopReacord = true;
-var reactionRoles = [];
-var definedReactionRole = null;
- 
-client.on("message", async message => {
-    const args = message.content.slice(prefix.length).trim().split(/ +/g);
-    const command = args.shift().toLowerCase();
-    if(message.author.bot) return;
-    if(message.content.indexOf(prefix) !== 0) return;
-    if (command == "autoc") {
-      if(!message.channel.guild) return message.reply(`**this ~~command~~ __for servers only__**`);
-      if(!message.member.hasPermission("ADMINISTRATOR")) return message.channel.send("sorry you can't do this");
-      if(!args[0] || args[1]) return message.channel.send(`\`\`\`${prefix}autoc <role-name>\`\`\``);
-      var role = message.guild.roles.find( role => { return role.name == args[0] });
-      if(!role) return message.channel.send(`no role with name ${definedRoleName} found, make sure you entered correct name`);
-      if(definedReactionRole != null  || !stopReacord) return message.channel.send("another reaction role request is running");
-      message.channel.send(`now go and add reaction in the message you want for role ${role.name}`);
-      definedReactionRole = role;
-      stopReacord = false;
-    }    
-})
-client.on('raw', raw => {
-  if (!['MESSAGE_REACTION_ADD', 'MESSAGE_REACTION_REMOVE'].includes(raw.t)) return;
-  var channel = client.channels.get(raw.d.channel_id);
-  if (channel.messages.has(raw.d.message_id)) return;
-  channel.fetchMessage(raw.d.message_id).then(message => {
-    var reaction = message.reactions.get( (raw.d.emoji.id ? `${raw.d.emoji.name}:${raw.d.emoji.id}` : raw.d.emoji.name) );
-    if (raw.t === 'MESSAGE_REACTION_ADD') return client.emit('messageReactionAdd', reaction, client.users.get(raw.d.user_id));
-    if (raw.t === 'MESSAGE_REACTION_REMOVE') return client.emit('messageReactionRemove', reaction, client.users.get(raw.d.user_id));
-  });
-});
-client.on('messageReactionAdd', (reaction, user) => {
-    if(user.id == client.user.id) return;
-    if(!stopReacord) {
-      var done = false;
-      reactionRoles[reaction.message.id] = { role: definedReactionRole, message_id: reaction.message.id, emoji: reaction.emoji};
-      stopReacord =  true;
-      definedReactionRole = null;
-      reaction.message.react(reaction.emoji.name)
-      .catch(err => {done = true; reaction.message.channel.send(`sorry i can't use this emoji but the reaction role done! anyone react will get the role!`)})
-     if(done) reaction.remove(user);
-   } else {
-     var request = reactionRoles[reaction.message.id];
-     if(!request) return;
-     if(request.emoji.name != reaction.emoji.name) return reaction.remove(user);
-     reaction.message.guild.members.get(user.id).addRole(request.role);
-   }
-})
-client.on('messageReactionRemove', (reaction, user) => {
- if(user.id == client.user.id) return;
- if(!stopReacord) return;
- let request = reactionRoles[reaction.message.id];
- if(!request) return;
- reaction.message.guild.members.get(user.id).removeRole(request.role);
-});
-
-
-const sug = JSON.parse(fs.readFileSync('./sug.json' , 'utf8'));
- 
 client.on('message', message => {
-           if (!message.channel.guild) return;
- 
-    let room = message.content.split(" ").slice(1);
-    let findroom = message.guild.channels.find('name', `${room}`)
-    if(message.content.startsWith(prefix + "setSug")) {
-        if(!message.channel.guild) return message.reply('**This Command Only For Servers**');
-        if(!message.member.hasPermission('MANAGE_GUILD')) return message.channel.send('**ليس لديك صلاحيات ** `MANAGE_GUILD`' );
-if(!room) return message.channel.send('Please Type The Channel Name')
-if(!findroom) return message.channel.send('Cant Find This Channel')
-let embed = new Discord.RichEmbed()
-.setTitle('**Done The Suggest Code Has Been Setup**')
-.addField('Channel:', `${room}`)
-.addField('Requested By:', `${message.author}`)
-.setThumbnail(message.author.avatarURL)
-.setFooter(`${client.user.username}`)
-message.channel.sendEmbed(embed)
-sug[message.guild.id] = {
-channel: room,
-}
-fs.writeFile("./sug.json", JSON.stringify(sug), (err) => {
-if (err) console.error(err)
-})
-   client.on('message', message => {
- 
- 
-    if(message.content.startsWith(`${prefix}suggest`)) {
-      if(!message.channel.guild) return message.reply('**هذ الامر للسيرفر فقط**');
-      let suggest = message.content.split(" ").slice(1);
-      if(!suggest) return message.reply(`**Please Type The Suggest**`)
-    let findchannel = (message.guild.channels.find('name', `${sug[message.guild.id].channel}`))
-    if(!findchannel) return message.channel.send(`Error 404: The Suggest Channel Cant Find Or Not Set To Set The Suggest Channel Type: ${prefix}setSug`)
-    message.channel.send(`Done Your Suggest Will Be Seen By The Staffs`)
-    let sugembed = new Discord.RichEmbed()
-    .setTitle('New Suggest !')
-    .addField('Suggest By:', `${message.author}`)
-    .addField('Suggest:', `${suggest}`)
-    .setFooter(client.user.username)
-    findchannel.sendEmbed(sugembed)
-        .then(function (message) {
-          message.react('✅')
-          message.react('❌')
-        })
-        .catch(err => {
-            message.reply(`Error 404: The Suggest Channel Cant Find Or Not Set To Set The Suggest Channel Type: ${prefix}setSug`)
-            console.error(err);
-        });
-        }
-      })
-    }})
+var prefix = "-";
+var cats = ["http://www.shuuf.com/shof/uploads/2015/09/09/jpg/shof_b9d73150f90a594.jpg","https://haltaalam.info/wp-content/uploads/2015/05/0.208.png","https://haltaalam.info/wp-content/uploads/2015/05/266.png","https://haltaalam.info/wp-content/uploads/2015/05/250.png","https://haltaalam.info/wp-content/uploads/2017/02/0.2517.png","https://pbs.twimg.com/media/CP0mi02UAAA3U2z.png","http://www.shuuf.com/shof/uploads/2015/08/31/jpg/shof_3b74fa7295ec445.jpg","http://www.shuuf.com/shof/uploads/2015/08/22/jpg/shof_fa3be6ab68fb415.jpg","https://pbs.twimg.com/media/CSWPvmRUcAAeZbt.png","https://pbs.twimg.com/media/B18VworIcAIMGsE.png"]
+        var args = message.content.split(" ").slice(1);
+    if(message.content.startsWith(prefix + 'هل تعلم')) {
+         var cat = new Discord.RichEmbed()
+.setImage(cats[Math.floor(Math.random() * cats.length)])
+message.channel.sendEmbed(cat);
+    }
+});
