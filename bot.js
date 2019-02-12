@@ -1494,10 +1494,13 @@ msg.guild.createChannel(args.join(' '), 'category');
 });
 
 
-
-client.on("ready", () => { // كود رينبو
-  function lol() {
-    client.guilds.get('471337129826451456').roles.find("name", "GAY").setColor("RANDOM");
-  };
-  setInterval(lol, 1000);
-}); //ᴀʟ » ii7mody
+client.on('message', message => {
+    if(message.content.toLowerCase().startsWith(`discord.gg`)){
+        message.member.addRole(message.guild.roles.find('name', 'Muted'));
+        var embed = new Discord.RichEmbed()
+        .setDescription(`تمت معاقبتك لنشرك سيرفر اخر هنا`)
+            message.delete();
+        message.channel.send(`<@${message.author.id}`);
+        message.channel.send({embed});
+    }
+});
