@@ -1553,10 +1553,6 @@ client.on('messageReactionRemove', (reaction, user) => {
 });
 
 
-
-
-
-
 const sug = JSON.parse(fs.readFileSync('./sug.json' , 'utf8'));
  
 client.on('message', message => {
