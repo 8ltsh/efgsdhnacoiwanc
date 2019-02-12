@@ -1509,7 +1509,7 @@ client.on('message', message => {
 
 client.on('message', message => {
 if(!message.channel.guild) return;
-if(message.content.startsWith('اسحب')) {
+if(message.content.startsWith('move')) {
  if (message.member.hasPermission("MOVE_MEMBERS")) {
  if (message.mentions.users.size === 0) {
  return message.channel.send("``لاستخدام الأمر اكتب هذه الأمر : " +prefix+ "move [USER]``")
