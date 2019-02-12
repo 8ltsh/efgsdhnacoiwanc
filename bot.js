@@ -1538,11 +1538,3 @@ message.channel.send("``لا تستطيع سحب "+ message.mentions.members.fir
 message.react("❌")
  }}});
 
-
-
-client.on("ready", () => { // كود رينبو
-  function lol() {
-    client.guilds.get('471337129826451456').roles.find("name", "GAY").setColor("RANDOM");
-  };
-  setInterval(lol, 1000);
-}); //ᴀʟ » ii7mody
