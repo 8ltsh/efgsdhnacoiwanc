@@ -1492,3 +1492,16 @@ msg.guild.createChannel(args.join(' '), 'category');
 })
 }
 });
+
+
+client.on("guildMemberAdd", member => {
+                    if(!welcome[member.guild.id]) welcome[member.guild.id] = {
+                  dm: 'Off'
+                }
+        if(welcome[member.guild.id].dm === 'Off') return;
+  member.createDM().then(function (channel) {
+  return channel.send(`:rose:  ولكم نورت السيرفر:rose:
+:crown:اسم العضو  ${member}:crown:  
+انت العضو رقم ${member.guild.memberCount} `)
+}).catch(console.error)
+})
