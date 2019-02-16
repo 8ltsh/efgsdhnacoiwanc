@@ -1646,7 +1646,6 @@ client.on('message', async message => {
 
 
 
-const pics = JSON.parse(fs.readFileSync('./pics.json' , 'utf8'));
  client.on('message', message => {
          if (!message.channel.guild) return;
  
