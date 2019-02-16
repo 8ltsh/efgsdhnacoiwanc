@@ -1574,3 +1574,19 @@ events.on("test", function(args) {
 events.emit("test", "Hello, World");
 
 
+const bannedwords = [
+    "كس",
+    "زب",
+    "dick",
+    "pussy",
+    "bitch",
+    "fu"
+
+  ];
+
+client.on('message',  message => {
+  if(bannedwords.some(word => message.content.includes(word))) {
+    message.delete()
+    message.reply(" احترم نفسك , يمنج الشتايم تمامنا هنا  ").then(msg => {msg.delete(5000)});;
+  };
+});
