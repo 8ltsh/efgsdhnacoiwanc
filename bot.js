@@ -1649,3 +1649,15 @@ client.channels.find('id', '544115341085900836').setName("Welcome To D");
 client.channels.find('id', '544115341085900836').setName("Welcome To C");
   }, 60000);
 });
+
+
+
+client.on('typingStart', (ch, user) => {
+    if(user.presence.status === 'offline') {
+        
+        ch.send(`${user} هاهاهاا , كشفتك وانت تكتب ي اوف لاين`)
+        .then(msg => {
+            msg.delete(10000)
+        })
+    }
+})
