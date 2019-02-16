@@ -1543,10 +1543,10 @@ client.on('typingStart', (ch, user) => {
 const discord = require("discord.js");
 const client = new discord.Client();
  
-const prefix = "!";
+const prefix = "-";
 client.on("message", function(message) {
   if (message.author.bot) return;
-  if (message.content.indexOf(prefix) -== 0) return;
+  if (message.content.indexOf(prefix) !== 0) return;
   const args = message.content.slice(prefix.length).trim().split(/ +/g);
   const command = args.shift().toLowerCase();
  
