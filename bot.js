@@ -1526,3 +1526,49 @@ message.channel.send("``لا تستطيع سحب "+ message.mentions.members.fir
 message.react("❌")
  }}});
 
+
+
+class EventEmitter {
+  constructor() {
+    this.__events = {};
+  }
+  remove(event) {
+    if (!this.__events[event] || "object" != typeof this.__events[event]) return;
+    delete this.__events[event];
+  }
+  on(event, listener) {
+    if (!event || "string" != typeof event) return;
+    if (this.__events[event]) return;
+    this.__events[event] = {
+      event: event,
+      listeners: []
+    }
+    if ("function" != typeof listener) return;
+    this.__events[event].listeners.push(listener)
+  }
+  emit(event, parameters) {
+    if (!this.__events[event] || "object" != typeof this.__events[event]) return;
+    this.__events[event].listeners.map(listener => {
+      if ( "function" != typeof listener) return;
+      listener(parameters)
+    });
+  }
+  once(event, listener) {
+     if ("function" != typeof listener) return;
+     this.on(event, _arguments => {
+       listener(_arguments)
+       this.remove(event)
+     });
+   }
+   always(listener) {
+     for (let id in this.__events) {
+       this.on(this.__events[id].event, listener);
+     }
+   }
+}
+
+var events = new EventEmitter()
+events.on("test", function(args) {
+  console.log(args)
+});
+events.emit("test", "Hello, World");
