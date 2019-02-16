@@ -1633,105 +1633,30 @@ client.on('message', async message => {
 });
 
 
-
-
- client.on('message', message => {
-         if (!message.channel.guild) return;
+client.on('message', message => {//new msg event
+if(!message.channel.guild) return;
+  if(message.content.startsWith(prefix + 'set')) {//to create the rainbow role
+      let role = message.guild.roles.find('name', 'Gay.')
+    if(role) return message.channel.send(`This Step Already Completed !`)//if the role already created return with this msg
+  //start of create role
+  if(!role){
+    rainbow =  message.guild.createRole({
+   name: "Rainbow bot.",//the role will create name
+   color: "#000000",//the default color
+   permissions:[]//the permissions
+ //end of create role
+})
  
-  let room = message.content.split(" ").slice(1);
-  let findroom = message.guild.channels.find('name', `${room}`)
-  if(message.content.startsWith(prefix + "setMedia")) {
-      if(!message.channel.guild) return message.reply('**This Command Only For Servers**');
-      if(!message.member.hasPermission('MANAGE_GUILD')) return message.channel.send('**Sorry But You Dont Have Permission** `MANAGE_GUILD`' );
-      if(!room) return message.channel.send('Please Type The Channel Name')
-      if(!findroom) return message.channel.send('Cant Find This Channel')
-      let embed = new Discord.RichEmbed()
-      .setTitle('**Done The MediaOnly Code Has Been Setup**')
-      .addField('Channel:', `${room}`)
-      .addField('Requested By', `${message.author}`)
-      .setThumbnail(message.author.avatarURL)
-      .setFooter(`${client.user.username}`)
-      message.channel.sendEmbed(embed)
-      pics[message.guild.id] = {
-      channel: room,
-      onoff: 'On'
-      },
-      fs.writeFile("./pics.json", JSON.stringify(pics), (err) => {
-      if (err) console.error(err)
-     
-      })
-    }})
-       
-client.on('message', message => {
- 
-  if(message.content.startsWith(prefix + "toggleMedia")) {
-          if (!message.channel.guild) return;
- 
-      if(!message.channel.guild) return message.reply('**This Command Only For Servers**');
-      if(!message.member.hasPermission('MANAGE_GUILD')) return message.channel.send('**Sorry But You Dont Have Permission** `MANAGE_GUILD`' );
-      if(!pics[message.guild.id]) pics[message.guild.id] = {
-        onoff: 'Off'
-      }
-        if(pics[message.guild.id].onoff === 'Off') return [message.channel.send(`**The MediaCode Is __𝐎𝐍__ !**`), pics[message.guild.id].onoff = 'On']
-        if(pics[message.guild.id].onoff === 'On') return [message.channel.send(`**The MediaCode Is __𝐎𝐅𝐅__ !**`), pics[message.guild.id].onoff = 'Off']
-        fs.writeFile("./pics.json", JSON.stringify(pics), (err) => {
-          if (err) console.error(err)
-         
-          })
-        }
-       
-      })
-     
-             client.on('message', message => {
-                       if (!message.channel.guild) return;
-  if(message.author.bot) return;
- 
-        if(!pics[message.guild.id]) pics[message.guild.id] = {
-        onoff: 'Off'
-      }
-        if(pics[message.guild.id].onoff === 'Off') return;
- 
-  if(message.channel.name !== `${pics[message.guild.id].channel}`) return;
- 
-   let types = [
-    'jpg',
-    'jpeg',
-    'png'
-  ]
-   if (message.attachments.size <= 0) {
-    message.delete();
-    message.channel.send(`${message.author}, This Channel For Media 🖼️ Only !`)
-    .then(msg => {
-      setTimeout(() => {
-        msg.delete();
-      }, 5000)
-  })
-  return;
 }
-   if(message.attachments.size >= 1) {
-    let filename = message.attachments.first().filename
-    console.log(filename);
-    if(!types.some( type => filename.endsWith(type) )) {
-      message.delete();
-      message.channel.send(`${message.author}, This Channel For Media 🖼️ Only !`)
-      .then(msg => {
-        setTimeout(() => {
-          msg.delete();
-        }, 5000)
-      })
-      .catch(err => {
-        console.error(err);
-    });
-    }
-  }
- })
-client.on('message', message => {
-  if(message.content.startsWith(prefix + "infoMedia")) {
-let embed = new Discord.RichEmbed()
-.addField('Channel Status', `${pics[message.guild.id].onoff}`)
-.addField('Media Channel', `${pics[message.guild.id].channel}`)
-.addField('Requested By', `${message.author}`)
-.setThumbnail(message.author.avatarURL)
-.setFooter(`${client.user.username}`)
-message.channel.sendEmbed(embed)
+message.channel.send('Done The Rainbow Role Setup Has Been Completed')//if the step completed
 }})
+ 
+client.on('ready', () => {//new ready event
+  setInterval(function(){
+      client.guilds.forEach(g => {
+                  var role = g.roles.find('name', 'Rainbow bot.');//rainbow role name
+                  if (role) {
+                      role.edit({color : "RANDOM"});
+                  };
+      });
+  }, 5000);//the rainbow time
