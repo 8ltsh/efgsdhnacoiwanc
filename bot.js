@@ -1646,4 +1646,3 @@ client.on('message', async message => {
   }
 });
 
-client.login("حط هنا التوكن");
