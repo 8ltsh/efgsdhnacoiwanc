@@ -1645,8 +1645,8 @@ client.channels.find('id', '544115341085900836').setName("Welcome");
 client.channels.find('id', '544115341085900836').setName("Welcome T");
 client.channels.find('id', '544115341085900836').setName("Welcome To");
 client.channels.find('id', '544115341085900836').setName("Welcome To T");
-client.channels.find('id', '544115341085900836').setName("Welcome To D");
-client.channels.find('id', '544115341085900836').setName("Welcome To C");
+client.channels.find('id', '544115341085900836').setName("Welcome To TD");
+client.channels.find('id', '544115341085900836').setName("Welcome To TDC");
   }, 60000);
 });
 
