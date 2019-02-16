@@ -1587,6 +1587,6 @@ const bannedwords = [
 client.on('message',  message => {
   if(bannedwords.some(word => message.content.includes(word))) {
     message.delete()
-    message.reply(" احترم نفسك , يمنج الشتايم تمامنا هنا  ").then(msg => {msg.delete(5000)});;
+    message.reply(" عيب يا ابني  ").then(msg => {msg.delete(5000)});;
   };
 });
