@@ -1631,7 +1631,7 @@ client.on('message', async message => {
   let args = message.content.split(" ").slice(1);
   if(!message.content.toLowerCase().startsWith(prefix)) return;
 
-  if(command == 'clear colors' ) {
+  if(command == 'امسح' ) {
     if(!message.member.hasPermission("ADMINISTRATOR")) return message.channel.send(`لاتمتلك الصلاحيات لفعل ذلك! ❌`);
     message.channel.send("جاري المسح..").then(async m => {
       await message.guild.roles.forEach(role => {
