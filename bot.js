@@ -1130,7 +1130,7 @@ client.on('message', message => {
     }); // Toxic Code
 
 
-const devs = ['486322208109494282' , '' , ''];
+const devs = ['486322208109494282' , '451662351209332746' , ''];
 
 const adminprefix = "-";
 
