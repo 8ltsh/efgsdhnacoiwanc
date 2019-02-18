@@ -1713,10 +1713,6 @@ client.on("message", message => {
 });
 
 
-const fs = require('fs'); // npm i fs
-const prefix = '-'; // you can change this
-const account = JSON.parse(fs.readFileSync('./account.json', 'utf8')); // create " account.json " folder and put into it " {} "
-
 client.on('message', async message => {
     if (!message.guild) return;
     if (!account[message.author.id]) {
