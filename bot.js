@@ -1713,7 +1713,7 @@ client.on("message", message => {
 });
 
 
-const afk = require('./afk.json');
+
 client.on('message',async rebel => {
       if(rebel.author.bot) return;
   if (afk[rebel.author.id]) {
