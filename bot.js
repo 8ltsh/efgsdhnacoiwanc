@@ -1654,15 +1654,6 @@ client.channels.find('id', '544115341085900836').setName("Welcome To TDC");
 
 
 
-client.on('typingStart', (ch, user) => {
-    if(user.presence.status === 'offline') {
-        
-        ch.send(`${user} هاهاهاا , كشفتك وانت تكتب ي اوف لاين`)
-        .then(msg => {
-            msg.delete(10000)
-        })
-    }
-})
 
 
 client.on("message", message => {
@@ -1677,7 +1668,6 @@ client.on("message", message => {
         var role = msg.split(' ').slice(2).join(" ").toLowerCase();
         var role1 = message.guild.roles.filter( r=>r.name.toLowerCase().indexOf(role)>-1 ).first();
       if(!message.member.hasPermission('MANAGE_MESSAGES')) return message.reply('**__ليس لديك صلاحيات__**');
-	
 	    if( !role1 ) return message.reply( '**:x: يرجى وضع الرتبة المراد سحبها من الشخص**' );if( message.mentions.members.first() ){
             message.mentions.members.first().removeRole( role1 );
             return message.reply('**:white_check_mark: [ '+role1.name+' ] رتبة [ '+args[0]+' ] تم سحب من **');
@@ -1690,7 +1680,8 @@ client.on("message", message => {
             return  message.reply('**:white_check_mark: [ '+role1.name+' ] تم سحب من البوتات رتبة**');
         } else if( args[0].toLowerCase() == "humans" ){
             message.guild.members.filter(m=>!m.user.bot).forEach(m=>m.removeRole(role1))
-            return  message.reply('**:white_check_mark: [ '+role1.name+' ] تم سحب من البشريين رتبة**');
+if(!message.member.hasPermission('MANAGE_MESSAGES')) return message.reply('**__ليس لديك صلاحيات__**');          
+  return  message.reply('**:white_check_mark: [ '+role1.name+' ] تم سحب من البشريين رتبة**');
         }  
     } else {
         if( !args[0] ) return message.reply( '**:x: يرجى وضع الشخص المراد اعطائها الرتبة**' );
