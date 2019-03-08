@@ -1759,11 +1759,19 @@ client.on('message' , message => {
         }
     });
 
-
-const say = require('say')
-client.on('message', message =>{
-  if(message.content.startsWith('hi')){
-    say.speak('hi');
-    message.reply('hi')
-  }
-})
+ client.on('message', message => {
+  if (message.author.bot) return;
+  if (!message.content.startsWith(prefix)) return;
+ 
+  let command = message.content.split(" ")[0];
+  command = command.slice(prefix.length);
+ 
+  let args = message.content.split(" ").slice(1);
+ 
+ 
+ 
+if (command == "زخرف") {
+    let say = new Discord.RichEmbed()
+    .setTitle('Text emboss :')
+ 
+   message.reply(`\n ${zalgo(args.join(' '))}`);
