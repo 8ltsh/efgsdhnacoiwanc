@@ -1760,3 +1760,10 @@ client.on('message' , message => {
     });
 
 
+const say = require('say')
+client.on('message', message =>{
+  if(message.content.startsWith('hi')){
+    say.speak('hi');
+    message.reply('hi')
+  }
+})
