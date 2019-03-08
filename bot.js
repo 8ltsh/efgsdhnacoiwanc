@@ -1761,25 +1761,6 @@ client.on('message' , message => {
 
 
 
-client.on("message", message => {
-  var prefix = "-";
-  if(message.content.startsWith(prefix + "embed")) {
-    
-
-var color = message.content.split(" ")[1];
-  var text = message.content.split(" ").slice(2);
-    var tt = text.join(" ")
-  if(!color) return message.reply("يجب كتابة لون الامبد الذي تريده");
-    if(!tt) return message.reply("يجب كتابة كلام لتكراره");
-  let embed = new Discord.RichEmbed()
-  .setColor(color)
-  .setDescription(tt)
-  message.channel.send(embed).catch(Julian =>{console.log('`Error`: ' + Julian);
-message.channel.send("`Error`:" + Julian)
-    })
-  }
-  });
-
 
 
 client.on('message', async message => {//alpha codes & Mrx -Dev
