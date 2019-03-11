@@ -1611,7 +1611,7 @@ client.channels.find('id', '544115341085900836').setName("بال");
 client.channels.find('id', '544115341085900836').setName("بالي");
 client.channels.find('id', '544115341085900836').setName("باليز");
 client.channels.find('id', '544115341085900836').setName("يرجب");
-client.channels.find('id', '544115341085900836').setName("بكم");
+client.channels.find('id', '544115341085900836').setName("سيرفر باليز يرجب بكم");
   }, 60000);
 });
 
