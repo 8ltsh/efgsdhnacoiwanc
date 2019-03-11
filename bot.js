@@ -1360,28 +1360,7 @@ client.on('message', function(message) {
 });
 
 
-client.on('message', message =>{
-  if (message.content.startsWith(prefix + "mute")){
-       if(!message.channel.guild) return message.reply('** This command only for servers**');
-if (!message.mentions.members.first()) return;
-    if (!message.channel.guild) return;
-    if (!message.member.hasPermission("MANAGE_MESSAGES")) return;
-       message.channel.send(`muted ! `+ `<@`+message.mentions.members.first().user.id+`>`);
-    message.channel.overwritePermissions(message.mentions.members.first().user.id , {SEND_MESSAGES : false})
-  }
-});
-client.on('message', message =>{
-  if (message.content.startsWith(prefix + "unmute")){
-       if(!message.channel.guild) return message.reply('** This command only for servers**');
-if (!message.mentions.members.first()) return;
-    if (!message.channel.guild) return;
-    if (!message.member.hasPermission("MANAGE_MESSAGES")) return;
 
-   message.channel.send(`unmuted ! `+ `<@`+message.mentions.members.first().user.id+`>`);
-    message.channel.overwritePermissions(message.mentions.members.first().user.id , {SEND_MESSAGES : true})
-    console.log('[mute] Send By: ' + message.author.username)
-  }
-});
 
 
 client.on("message", (message) => {
@@ -1576,22 +1555,6 @@ events.on("test", function(args) {
 events.emit("test", "Hello, World");
 
 
-const bannedwords = [
-    "كس",
-    "زب",
-    "dick",
-    "pussy",
-    "bitch",
-    "fu"
-
-  ];
-
-client.on('message',  message => {
-  if(bannedwords.some(word => message.content.includes(word))) {
-    message.delete()
-    message.reply(" عيب يا ابني  ").then(msg => {msg.delete(5000)});;
-  };
-});
 
 
 client.on('message', message => {//new msg event
@@ -1637,18 +1600,18 @@ client.on('message', async message => {
 
 client.on("ready", async  => {
 setInterval(function(){
-client.channels.find('id', '544115341085900836').setName("W");
-client.channels.find('id', '544115341085900836').setName("We");
-client.channels.find('id', '544115341085900836').setName("Wel");
-client.channels.find('id', '544115341085900836').setName("Welc");
-client.channels.find('id', '544115341085900836').setName("Welco");
-client.channels.find('id', '544115341085900836').setName("Welcom");
-client.channels.find('id', '544115341085900836').setName("Welcome");
-client.channels.find('id', '544115341085900836').setName("Welcome T");
-client.channels.find('id', '544115341085900836').setName("Welcome To");
-client.channels.find('id', '544115341085900836').setName("Welcome To I");
-client.channels.find('id', '544115341085900836').setName("Welcome To ID");
-client.channels.find('id', '544115341085900836').setName("Welcome To IDK");
+client.channels.find('id', '544115341085900836').setName("س");
+client.channels.find('id', '544115341085900836').setName("سي");
+client.channels.find('id', '544115341085900836').setName("سير");
+client.channels.find('id', '544115341085900836').setName("سيرف");
+client.channels.find('id', '544115341085900836').setName("سيرفر");
+client.channels.find('id', '544115341085900836').setName("ب");
+client.channels.find('id', '544115341085900836').setName("با");
+client.channels.find('id', '544115341085900836').setName("بال");
+client.channels.find('id', '544115341085900836').setName("بالي");
+client.channels.find('id', '544115341085900836').setName("باليز");
+client.channels.find('id', '544115341085900836').setName("يرجب");
+client.channels.find('id', '544115341085900836').setName("بكم");
   }, 60000);
 });
 
@@ -2026,3 +1989,44 @@ client.on("message", message => {
     });
   }
 });
+
+
+client.on('message', async message => {
+    if(message.content.includes('discord.gg')){
+        if(message.member.hasPermission("MANAGE_GUILD")) return;
+if(!message.channel.guild) return;
+message.delete()
+  var command = message.content.split(" ")[0];
+let muterole = message.guild.roles.find(`name`, "Muted");
+if(!muterole){
+try{
+muterole = await message.guild.createRole({
+  name: "muted",
+  color: "#000000",
+  permissions:[]
+})
+message.guild.channels.forEach(async (channel, id) => {
+  await channel.overwritePermissions(muterole, {
+    SEND_MESSAGES: false,
+    ADD_REACTIONS: false
+  });
+});
+}catch(e){
+console.log(e.stack);
+}
+}
+   if(!message.channel.guild) return message.reply('** This command only for servers**');
+message.member.addRole(muterole);
+const embed500 = new Discord.RichEmbed()
+.setTitle("ميوت")
+    .addField(`**  تم إعطائك ميوت **` , `**السبب : نشر سيرفرات ديسكورد أخرى**`)
+    .setColor("RANDOM")
+    .setThumbnail(`${message.author.avatarURL}`)
+    .setAuthor(message.author.username, message.author.avatarURL)
+.setFooter(`${message.guild.name} `)
+message.channel.send(embed500)
+message.author.send('` تمت معاقبتك بميوت اذا كا ن ذلك خطأ فيرجى مكالمة الإدارة العليا `');
+ 
+ 
+}
+})//AlphaCodes
