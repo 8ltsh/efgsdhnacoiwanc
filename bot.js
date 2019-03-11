@@ -1822,30 +1822,7 @@ if (message.member.voiceChannel == null) return;
    });
 
 
-client.on('message', async message => {
-    if(message.content.includes('discord.gg')){
-        if(message.member.hasPermission("MANAGE_GUILD")) return;
-if(!message.channel.guild) return;
-message.delete()
-  var command = message.content.split(" ")[0];
-let muterole = message.guild.roles.find(`name`, "Muted");
-if(!muterole){
-try{
-muterole = await message.guild.createRole({
-  name: "muted",
-  color: "#000000",
-  permissions:[]
-})
-message.guild.channels.forEach(async (channel, id) => {
-  await channel.overwritePermissions(muterole, {
-    SEND_MESSAGES: false,
-    ADD_REACTIONS: false
-  });
-});
-}catch(e){
-console.log(e.stack);
-}
-}
+
    if(!message.channel.guild) return message.reply('** This command only for servers**');
 message.member.addRole(muterole);
 const embed500 = new Discord.RichEmbed()
