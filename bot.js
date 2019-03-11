@@ -1823,22 +1823,6 @@ if (message.member.voiceChannel == null) return;
 
 
 
-   if(!message.channel.guild) return message.reply('** This command only for servers**');
-message.member.addRole(muterole);
-const embed500 = new Discord.RichEmbed()
-.setTitle("ميوت")
-    .addField(`**  تم إعطائك ميوت **` , `**السبب : نشر سيرفرات ديسكورد أخرى**`)
-    .setColor("RANDOM")
-    .setThumbnail(`${message.author.avatarURL}`)
-    .setAuthor(message.author.username, message.author.avatarURL)
-.setFooter(`${message.guild.name} `)
-message.channel.send(embed500)
-message.author.send('` تمت معاقبتك بميوت اذا كا ن ذلك خطأ فيرجى مكالمة الإدارة  `');
- 
- 
-}
-})//AlphaCodes
-
 
 
 client.on('message', message => {
