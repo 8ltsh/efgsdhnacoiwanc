@@ -2115,7 +2115,44 @@ client.on('message', message => {
     var args = message.content.split(/[ ]+/)
     if(message.content.includes('youtube')){
         message.delete()
-    return message.reply(`** لايمكنك نشر اروابط في هذا اسرفر **`)
+    return message.reply(`** لايمكنك نشر روابط في هذا السيرفر **`)
     }
  
 });
+
+
+
+
+client.on('guildMemberAdd', (member) => {
+member.addRole(member.guild.roles.find('name', 'not active'));
+});
+ 
+ 
+client.on('message', message => {                      
+    if(!message.channel.guild) return;
+       if(message.content.startsWith(prefix + 'active')) {
+        let modlog = client.channels.find('name', 'الـــــــــشات_العام');
+       if(!message.channel.guild) return message.channel.send('**هذا الأمر فقط للسيرفرات**').then(m => m.delete(5000));
+       message.channel.sendMessage(`اضغط على الصح عشان تتفعل`).then(msg => {
+       
+       
+        msg.react('✅')
+       .then(() => msg.react('✅'))
+     
+     
+ 
+       let activeFilter = (reaction, user) => reaction.emoji.name === '✅' && user.id === message.author.id;
+     
+       let active = msg.createReactionCollector(activeFilter, { time: 15000 });
+     
+                                                       
+                               active.on("collect", r => {
+                                   message.member.addRole(message.guild.roles.find("name", "active"));
+                                   message.member.removeRole(message.guild.roles.find("name", "not active"));
+                                   msg.delete();
+                                   message.channel.send(`**تم تفعيلك استمتع.**`).then(m => m.delete(1000));
+     
+                                   })
+                                   })
+                                   }
+                                   });
