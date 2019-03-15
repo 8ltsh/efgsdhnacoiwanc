@@ -1604,14 +1604,13 @@ client.channels.find('id', '544115341085900836').setName("س");
 client.channels.find('id', '544115341085900836').setName("سي");
 client.channels.find('id', '544115341085900836').setName("سير");
 client.channels.find('id', '544115341085900836').setName("سيرف");
-client.channels.find('id', '544115341085900836').setName("سيرفر");
-client.channels.find('id', '544115341085900836').setName("ب");
-client.channels.find('id', '544115341085900836').setName("با");
-client.channels.find('id', '544115341085900836').setName("بال");
-client.channels.find('id', '544115341085900836').setName("بالي");
-client.channels.find('id', '544115341085900836').setName("باليز");
-client.channels.find('id', '544115341085900836').setName("يرجب");
-client.channels.find('id', '544115341085900836').setName("سيرفر باليز يرجب بكم");
+client.channels.find('id', '544115341085900836').setName("سيرفر ب");
+client.channels.find('id', '544115341085900836').setName("سيرفر با");
+client.channels.find('id', '544115341085900836').setName("سيرفربال");
+client.channels.find('id', '544115341085900836').setName("سيرفر بالي");
+client.channels.find('id', '544115341085900836').setName("سيرفر باليز");
+client.channels.find('id', '544115341085900836').setName("سيرفر باليز يرحب");
+client.channels.find('id', '544115341085900836').setName("سيرفرباليز يرحب بكم");
   }, 60000);
 });
 
@@ -2151,7 +2150,7 @@ client.on('message', message => {
                                    message.member.removeRole(message.guild.roles.find("name", "not active"));
                                    msg.delete();
                                    message.channel.send(`**تم تفعيلك استمتع.**`).then(m => m.delete(1000));
-     
+                                   msg.delete();
                                    })
                                    })
                                    }
@@ -2175,7 +2174,7 @@ client.on('voiceStateUpdate', (oldM, newM) => {
   let rebel2 = newM.serverMute;
   let codes1 = oldM.serverDeaf;
   let codes2 = newM.serverDeaf;
-  let ch = oldM.guild.channels.find('name', 'voice logs')
+  let ch = oldM.guild.channels.find('name', 'voice')
   if(!ch) return;//ReBeL & Codes
     oldM.guild.fetchAuditLogs()
     .then(logs => {
