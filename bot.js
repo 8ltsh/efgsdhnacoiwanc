@@ -2222,7 +2222,7 @@ client.on('voiceStateUpdate', (oldM, newM) => {
 
 
 client.on('message', message => {
-    if (message.content.startsWith("<@486322208109494282>"))
+    if (message.content.startsWith("<@8LTSH!#6417>"))
     
     message.reply("die[:");
     
