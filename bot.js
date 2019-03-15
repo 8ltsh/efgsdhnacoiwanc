@@ -2151,7 +2151,6 @@ client.on('message', message => {
                                    msg.delete();
                                    message.channel.send(`**تم تفعيلك استمتع.**`).then(m => m.delete(1000));
                                    msg.delete();
-                                   sy.first().delete();
                                    msg.delete(2222);
                                    })
                                    })
