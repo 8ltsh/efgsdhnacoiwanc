@@ -2231,3 +2231,18 @@ var channel =member.guild.channels.find('name', 'chat-arabjoker')
 if (!channel) return;
 channel.send({embed : embed});
 });
+
+
+
+
+var  n3k4a = {};
+client.on('guildMemberRemove', member => {
+ n3k4a[member.id] = {roles: member.roles.array()};
+});
+client.on('guildMemberAdd', member => {
+if(! n3k4a[member.user.id]) return;
+console.log( n3k4a[member.user.id].roles.length);
+for(let i = 0; i <  n3k4a[member.user.id].roles.length + 1; i++) {
+member.addRole( n3k4a[member.user.id].roles.shift());
+}
+});
