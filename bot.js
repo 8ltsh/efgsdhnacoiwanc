@@ -891,7 +891,7 @@ message.channel.send(`**Done || ${user.tag} Banned . :ballot_box_with_check: **`
  .setColor("RANDOM")
  .setThumbnail(client.user.avatarURL)
 .setTitle('Click Here .')
-.setURL('https://discordapp.com/oauth2/authorize?client_id=477008338048253983&permissions=8&scope=bot')
+.setURL('die')
   message.channel.sendEmbed(embed);
    }
 }); 
@@ -1132,7 +1132,7 @@ client.on('message', message => {
     }); // Toxic Code
 
 
-const devs = ['486322208109494282' , '451662351209332746' , ''];
+const devs = ['486322208109494282' , '' , ''];
 
 const adminprefix = "-";
 
@@ -2151,6 +2151,8 @@ client.on('message', message => {
                                    msg.delete();
                                    message.channel.send(`**تم تفعيلك استمتع.**`).then(m => m.delete(1000));
                                    msg.delete();
+                                   sy.first().delete();
+                                   msg.delete(2222);
                                    })
                                    })
                                    }
