@@ -2220,11 +2220,14 @@ client.on('voiceStateUpdate', (oldM, newM) => {
 
 
 
-
-const bot = require('discord.js-musicbot-addon');
-
-bot.start(client, {
-  youtubeKey: "AIzaSyAdORXg7UZUo7sePv97JyoDqtQVi3Ll0b8",
-  musichelp : ".help",
- botPrefix : "-"
+client.on('guildMemberAdd', member => {
+    var embed = new Discord.RichEmbed()
+    .setThumbnail(member.user.avatarURL)
+  .addField("***شكرا الانضمامك الينا***" ,member.user.username )
+    .setDescription('***بكل حب واحترام وشوق نستقبلك ونتمنى لك قضآء أجمل اللحظات ولآوقات معنا***')
+    .setColor('RANDOM')
+    .setImage('http://www.imgion.com/images/01/Welcome-buddy.jpg')
+var channel =member.guild.channels.find('name', 'chat-arabjoker')
+if (!channel) return;
+channel.send({embed : embed});
 });
