@@ -2228,140 +2228,16 @@ channel.send({embed : embed});
 });
 
 
-var prefix = "-" ; // البرفكس
- 
-var stopReacord = true;
-var reactionRoles = [];
-var definedReactionRole = null;
- 
-client.on("message", async message => {
-    const args = message.content.slice(prefix.length).trim().split(/ +/g);
-    const command = args.shift().toLowerCase();
-    if(message.author.bot) return;
-    if(message.content.indexOf(prefix) !== 0) return;
-    if (command == "autoc") {
-      if(!message.channel.guild) return message.reply(`**this ~~command~~ __for servers only__**`);
-      if(!message.member.hasPermission("ADMINISTRATOR")) return message.channel.send("sorry you can't do this");
-      if(!args[0] || args[1]) return message.channel.send(`\`\`\`${prefix}autoC <role-name>\`\`\``);
-      var role = message.guild.roles.find( role => { return role.name == args[0] });
-      if(!role) return message.channel.send(`no role with name ${definedRoleName} found, make sure you entered correct name`);
-      if(definedReactionRole != null  || !stopReacord) return message.channel.send("another reaction role request is running");
-      message.channel.send(`now go and add reaction in the message you want for role ${role.name}`);
-      definedReactionRole = role;
-      stopReacord = false;
-    }    
-})
-client.on('raw', raw => {
-  if (!['MESSAGE_REACTION_ADD', 'MESSAGE_REACTION_REMOVE'].includes(raw.t)) return;
-  var channel = client.channels.get(raw.d.channel_id);
-  if (channel.messages.has(raw.d.message_id)) return;
-  channel.fetchMessage(raw.d.message_id).then(message => {
-    var reaction = message.reactions.get( (raw.d.emoji.id ? `${raw.d.emoji.name}:${raw.d.emoji.id}` : raw.d.emoji.name) );
-    if (raw.t === 'MESSAGE_REACTION_ADD') return client.emit('messageReactionAdd', reaction, client.users.get(raw.d.user_id));
-    if (raw.t === 'MESSAGE_REACTION_REMOVE') return client.emit('messageReactionRemove', reaction, client.users.get(raw.d.user_id));
-  });
-});
-client.on('messageReactionAdd', (reaction, user) => {
-    if(user.id == client.user.id) return;
-    if(!stopReacord) {
-      var done = false;
-      reactionRoles[reaction.message.id] = { role: definedReactionRole, message_id: reaction.message.id, emoji: reaction.emoji};
-      stopReacord =  true;
-      definedReactionRole = null;
-      reaction.message.react(reaction.emoji.name)
-      .catch(err => {done = true; reaction.message.channel.send(`sorry i can't use this emoji but the reaction role done! anyone react will get the role!`)})
-      if(done) reaction.remove(user);
-    } else {
-      var request = reactionRoles[reaction.message.id];
-      if(!request) return;
-      if(request.emoji.name != reaction.emoji.name) return reaction.remove(user);
-      reaction.message.guild.members.get(user.id).addRole(request.role);
+client.on('message', msg => {
+    if (msg.content == 'join') {
+        if (msg.member.voiceChannel) {
+
+         if (msg.member.voiceChannel.joinable) {
+         msg.member.voiceChannel.join().then(msg.react(👍'));
+     }
     }
-})
-client.on('messageReactionRemove', (reaction, user) => {
-  if(user.id == client.user.id) return;
-  if(!stopReacord) return;
-  let request = reactionRoles[reaction.message.id];
-  if(!request) return;
-  reaction.message.guild.members.get(user.id).removeRole(request.role);
-});
-
-
-
-
-let emojiss = require("node-emoji");//npm i node-emoji
-client.on("message", msg=>{
-if(msg.content.startsWith(`${prefix}setRole`)){
-if(!msg.member.hasPermission("ADMINISTRATOR")) return msg.reply("you don't have permission").then(s => {s.delete(1600);})
-msg.reply("منشن الروم الي تبي فيه التفعيل").then(msgs=>{
-  const filter = response => response.author.id === msg.author.id;
-  msg.channel.awaitMessages(filter, { maxMatches: 1, time: 30000, errors: ['time'] })
-  .then( collected =>{
-    msg.delete();
-    let idC = msg.guild.channels.find(c=>c.id == collected.first().mentions.channels.first().id)
-    if(!idC) return msgs.edit("لم اجد الروم");
-     idC = idC.id;
-     msgs.edit(`${msg.author}, ادخل الايموجي الذي تريدة للتفعيل`)
-const filter = response => response.author.id === msg.author.id;
-msg.channel.awaitMessages(filter, { maxMatches: 1, time: 30000, errors: ['time'] })
-.then( collected =>{
-if(!emojiss.hasEmoji(collected.first().mentions._content)) return msgs.edit("ادخل ايموجي صحيح !");
-newemoji = collected.first().mentions._content;
-msg.delete();
-msgs.edit(`${msg.author}, منشن للرتبة الذي تريدها`)
-const filter = response => response.author.id === msg.author.id;
-msg.channel.awaitMessages(filter, { maxMatches: 1, time: 30000, errors: ['time'] })
-.then( collected =>{
-let roleW = collected.first().mentions.roles.first()
-if(!roleW) {
-  let embed = new Discord.RichEmbed()
-  .setColor("#42f4f4")
-  .setTitle(`:x: - منشن الرتبة `);
-  msg.reply(embed).then( z => z.delete(3000)); return
-};
-let role = msg.guild.roles.find(`name`, roleW.name);
-if(!role) {
-  let embed = new Discord.RichEmbed()
-  .setColor("#42f4f4")
-  .setTitle(`:x: - Could't find \`${roleW.name}\` role.`);
-msg.reply(embed).then( msgs => msgs.delete(3000));
-return
 }
-roleNew = role;
-msgs.edit(`${msg.author}, ادخل النص الذي تريدة`)
-const filter = response => response.author.id === msg.author.id;
-msg.channel.awaitMessages(filter, { maxMatches: 1, time: 30000, errors: ['time'] })
-.then( collected =>{
-stringNew = collected.first().mentions._content;
-let channel = msg.guild.channels.get(idC);
-if(!channel) {
-  let embed = new Discord.RichEmbed()
-  .setColor("#42f4f4")
-  .setTitle(`:x: - Could't find \`${idC}\` Channel.`);
-msg.reply(embed).then( msgs => msgs.delete(3000));
-return
-}
-channel.bulkDelete(100)
-channel.send(`@here || @everyone
-${msg.guild.name}© :arrow_down:
- 
-${stringNew}
-`).then( msgA =>{
-msgA.react(newemoji).then(()=>{
-  const Ac = (reaction, user) => reaction.emoji.name === newemoji && !user.bot;
-  const Acc = msgA.createReactionCollector(Ac, {time: 120000});
-  Acc.on("collect", r=>{
-  let member = msg.guild.members.get(r.users.last().id);
-  if(!member) return;
-  r.remove(member.user);
-if(member.roles.find(r=>r.name == roleNew.name)) return;
-    member.addRole(roleNew);
-  channel.send(`${member.user}, تم تفعيلك`).then(z => z.delete(1500));
-})})})
-}).catch(e => {console.log(e.message)});  
-}).catch(e => {console.log(e.message)});
-}).catch(e => {console.log(e.message)});
-}).catch(e => {console.log(e.message)});
 })
-///
-}});
+client.on('ready', () => { 
+client.channels.get("544115341085900836").join();
+    });
