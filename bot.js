@@ -2256,7 +2256,7 @@ client.on('message', message => {
 
 
 client.on('message', message => {
-   let emoji = client.guilds.get("471337129826451456").emojis.find(r => r.name === "ftn"); //كود تعريف المتغير emoji
+   let emoji = client.guilds.get("471337129826451456").emojis.find(r => r.name === "ChikaAutism"); //كود تعريف المتغير emoji
  
     if(message.content === 'ChikaAutism'){ //تحقق اذا الرساله هي sebdemji
    message.channel.send(`${emoji}`)//يرسل المتغير emoji 
