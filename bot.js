@@ -2222,7 +2222,7 @@ client.on('guildMemberAdd', member => {
     .setDescription('***نتمنى ان تحضى بوقت جميل معنى***')
     .setColor('RANDOM')
     .setImage('https://cdn.discordapp.com/attachments/544243371439292426/558220253604347904/welcome.png')
-var channel =member.guild.channels.find('name', 'welcome')
+var channel =member.guild.channels.find('name', 'welcome-👋')
 if (!channel) return;
 channel.send({embed : embed});
 });
