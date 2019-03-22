@@ -2235,3 +2235,10 @@ client.channels.get("544115341085900836").join();
 
 
 
+client.on('message', message => {
+   let emoji = client.guilds.get("471337129826451456").emojis.find(r => r.name === "enigma 2"); //كود تعريف المتغير emoji
+ 
+    if(message.content === 'sendemoji'){ //تحقق اذا الرساله هي sebdemji
+   message.channel.send(`${emoji}`)//يرسل المتغير emoji 
+    }  // xomar933 نهاية قوس التحقق
+}); // x نهاية قوس الايفنت 
