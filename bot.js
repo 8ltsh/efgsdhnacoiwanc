@@ -2244,10 +2244,9 @@ const setupCMD = "-reacon"//الرساله لتشغيل امر الرياكشن
 let initialMessage = `**React to the messages below to receive the associated role. If you would like to remove the role, simply remove your reaction!**`;
 const roles = ["Fortnite", "Pubg", "Brawlhalla", "Minecraft", "Apex-Legend", "Cs:Go", "Paladins", "Half life", "LOL", "COD", "BattleField", "Rinbow 6", "Black Squad", "Dofus", "Overwatch"];//الرتب الي يعطيها البوت يمديك تعدل
 const reactions = [":Fortnite: ", ":Pubg:", ":Brawhalla:", ":mincrafte:", ":apex:", ":csgo:", ":paladins:", ":halflife:", ":lol:" , ":cod:", ":battlefield:", ":rin6:", ":blacksquad:", "dofus", "overwatch" ];//الايموجي الي يعطي رياكشن بس كل رتبه لها رياكسن بالترتيب 
-const botToken = "توكن البوت"; //حط توكن بوتك
 const Discord = require('discord.js');
 const bot = new Discord.Client();
-bot.login(botToken);
+client.login(process.env.BOT_TOKEN);
 
 if (roles.length !== reactions.length) throw "__**Gaming Roles**__";
 //لالالالالا نغير شي ابداا
