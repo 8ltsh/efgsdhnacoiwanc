@@ -2266,9 +2266,10 @@ client.on('message', message => {
 
 
 
-client.on('message', msg => {
-if(msg.author.id !== '486322208109494282') return;
-if (msg.content === 'hi') {
-msg.reply("hello")
-}
+client.on("message", message => {
+  let prefix = "-";
+  if (!(message.author.bot) && message.channel.type == "text")
+    if (message.content.startsWith(`${prefix}getScreenShareLink`))
+      if (message.member.voiceChannel) message.channel.send(`https://discordapp.com/channels/${message.guild.id}/${message.member.voiceChannel.id}`);
+      else message.channel.send(`**يجب عليك ان تكون في الروم الذي تريد جلب رابط مشاركة بالفيديو خاص به**`);
 });
