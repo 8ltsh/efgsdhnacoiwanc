@@ -914,47 +914,6 @@ message.channel.send(`**Done || ${user.tag} Kicked . :ballot_box_with_check: **`
 });
 
 
-        if (message.content.startsWith(prefix + 'help')) {
-        let pages = ['\n\`\`\` General Commands \n▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬\n-server | معلومات السيرفر \n-id | أيدي حسابك\n-emojis | أيموجي السيرفر\n-rank | مستواك الكتابي \n-avatar | صورة بروفايلك\n-ping | سرعة الأتصال\n-gif | صورة متحركه \n-invites | لرؤية دعواتك\n- \`\`\`** ','**\n\`\`\`Admin Commands \n▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬\n-kick | طرد عضو\n-ban | حظر عضو\n-voice | المتصلين بالصوت\n-bc | البرودكاست\n-clear | مسح الشات\n-temp on | لعمل قسم خاص بـ صناعه روم بأسمك\n-temp off | لتقفيل الخاصيه\n-mute |لسكات عضو\n-unmute |فك الميوت \`\`\` ** ']
-
-        let page = 1;
-
-        let embed = new Discord.RichEmbed()
-        .setColor('RANDOM')
-        .setThumbnail('https://cdn.discordapp.com/attachments/477011368403271680/477011788987367435/monogram-l-logo-letter-overlapping-thin-line-vector-5868172.jpg')
-        .setDescription(pages[page-1])
-
-        message.channel.sendEmbed(embed).then(msg => {
-
-            msg.react('🌍').then( r => {
-                msg.react('🔌')
-
-
-            const backwardsFilter = (reaction, user) => reaction.emoji.name === '🌍' && user.id === message.author.id;
-            const forwardsFilter = (reaction, user) => reaction.emoji.name === '🔌' && user.id === message.author.id;
-
-
-            const backwards = msg.createReactionCollector(backwardsFilter, { time: 20000});
-            const forwards = msg.createReactionCollector(forwardsFilter, { time: 20000});
-
-
-
-            backwards.on('collect', r => {
-                if (page === 1) return;
-                page--;
-                embed.setDescription(pages[page-1]);
-                msg.edit(embed)
-            })
-            forwards.on('collect', r => {
-                if (page === pages.length) return;
-                page++;
-                embed.setDescription(pages[page-1]);
-                msg.edit(embed)
-            })
-            })
-        })
-        }
-    });
 
 
 client.on('message', message => { 
