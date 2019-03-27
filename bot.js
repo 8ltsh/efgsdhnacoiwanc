@@ -914,62 +914,47 @@ message.channel.send(`**Done || ${user.tag} Kicked . :ballot_box_with_check: **`
 });
 
 
-    client.on('message', message => {
-client.on("message", message => {
- if (message.content === "-help") {
-  const embed = new Discord.RichEmbed() 
-      .setColor("#ffff00")
-      .setThumbnail(message.author.avatarURL)
-      .setDescription(`
+        if (message.content.startsWith(prefix + 'help')) {
+        let pages = ['\n\`\`\` General Commands \n▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬\n-server | معلومات السيرفر \n-id | أيدي حسابك\n-emojis | أيموجي السيرفر\n-rank | مستواك الكتابي \n-avatar | صورة بروفايلك\n-ping | سرعة الأتصال\n-gif | صورة متحركه \n-invites | لرؤية دعواتك\n- \`\`\`** ','**\n\`\`\`Admin Commands \n▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬\n-kick | طرد عضو\n-ban | حظر عضو\n-voice | المتصلين بالصوت\n-bc | البرودكاست\n-clear | مسح الشات\n-temp on | لعمل قسم خاص بـ صناعه روم بأسمك\n-temp off | لتقفيل الخاصيه\n-mute |لسكات عضو\n-unmute |فك الميوت \`\`\` ** ']
+
+        let page = 1;
+
+        let embed = new Discord.RichEmbed()
+        .setColor('RANDOM')
+        .setThumbnail('https://cdn.discordapp.com/attachments/477011368403271680/477011788987367435/monogram-l-logo-letter-overlapping-thin-line-vector-5868172.jpg')
+        .setDescription(pages[page-1])
+
+        message.channel.sendEmbed(embed).then(msg => {
+
+            msg.react('🌍').then( r => {
+                msg.react('🔌')
 
 
-        ***__General orders__***
-**
-『-id / معلومات عن حسابك』
-『-roles / يعرض لك الرتب و عددها』
-『-rooms / يعرض لك الرومات وعددها』
-『-server / معلومات عن السيرفر』
-『-image / يعرض صوره السيرفر』
-『-avatar / يعرض صورتك او صوره شخص』
-**
-
-        ***__Bot orders__***
-**
-『-ping / يعرض لك سرعه اتصال البوت』
-『-uptime / يعرض لك صار للبوت كم شغال』
-『-support / سيرفر الدعم القني و المساعده』
-『-invite / اضافه البوت』
-『-members / حاله الاعضاء』
-『-bot / معلومات عن البوت』
-**
-
-        ***__Administrative Orders__***
-**
-『-kick / كيك』
-『-ban / بان』
-『-mute /ميوت』
-『-unmute /فك الميوت』
-『-mutechannel /قفل الشات』
-『-unmutechannel /فتح الشات』
-『-add.r / اضافه رتبه』
-『-delet / مسح روم』
-『-color 50 /انشاء 50 لون』
-『-color 100/انشاء 100 لون』
-『-color 140/انشاء 140 لوم』
-『-ct /انشاء روم كتابي』4
-『-cv /انشاء روم صوتي』
-『-bc /برودكاست』
-**
-
-   
-        
-`)
+            const backwardsFilter = (reaction, user) => reaction.emoji.name === '🌍' && user.id === message.author.id;
+            const forwardsFilter = (reaction, user) => reaction.emoji.name === '🔌' && user.id === message.author.id;
 
 
-message.author.sendEmbed(embed)
+            const backwards = msg.createReactionCollector(backwardsFilter, { time: 20000});
+            const forwards = msg.createReactionCollector(forwardsFilter, { time: 20000});
 
-}
-}); 
+
+
+            backwards.on('collect', r => {
+                if (page === 1) return;
+                page--;
+                embed.setDescription(pages[page-1]);
+                msg.edit(embed)
+            })
+            forwards.on('collect', r => {
+                if (page === pages.length) return;
+                page++;
+                embed.setDescription(pages[page-1]);
+                msg.edit(embed)
+            })
+            })
+        })
+        }
+    });
 
 
 client.on('message', message => { 
