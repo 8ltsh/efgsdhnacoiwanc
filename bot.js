@@ -1602,3 +1602,14 @@ client.on("message", message => {
       else message.channel.send(`**يجب عليك ان تكون في الروم الذي تريد جلب رابط مشاركة بالفيديو خاص به**`);
 });
 
+
+client.on('message', message => {
+    if (message.content.startsWith("<@486322208109494282>"))
+
+    message.reply("حبيبي مشغول حرك");
+
+
+
+
+
+});
