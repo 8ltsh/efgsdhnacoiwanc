@@ -921,25 +921,6 @@ client.on('message', async message => {
 });
 
 
-client.on("ready", async  => {
-setInterval(function(){
-client.channels.find('id', '544115341085900836').setName("س");
-client.channels.find('id', '544115341085900836').setName("سي");
-client.channels.find('id', '544115341085900836').setName("سير");
-client.channels.find('id', '544115341085900836').setName("سيرف");
-client.channels.find('id', '544115341085900836').setName("سيرفر ب");
-client.channels.find('id', '544115341085900836').setName("سيرفر با");
-client.channels.find('id', '544115341085900836').setName("سيرفربال");
-client.channels.find('id', '544115341085900836').setName("سيرفر بالي");
-client.channels.find('id', '544115341085900836').setName("سيرفر باليز");
-client.channels.find('id', '544115341085900836').setName("سيرفر باليز يرحب");
-client.channels.find('id', '544115341085900836').setName("سيرفرباليز يرحب بكم");
-  }, 60000);
-});
-
-
-
-
 
 client.on('message',async rebel => {
       if(rebel.author.bot) return;
@@ -1608,7 +1589,15 @@ client.on('message', message => {
 
     message.reply("حبيبي مشغول حرك");
 
-
+   msg.channel.awaitMessages(fltr, {
+time: 60000,
+max: 1
+        })
+        .then(sy => {
+            args = sy.first().content
+            sy.first().delete();
+            msg.delete(2222);
+            msg.channel.send(args)
 
 
 
