@@ -1597,3 +1597,13 @@ antispam(client, {
   maxDuplicatesBan: 10, // عدد الرسايل الي يقدر المستخدم يرسلها قبل الميوت
   time: 10, // عدد الوقت الي يجلس لين تسحب رتبة الميوت من الشخص الحسبة برمجية وليست كتابية 
 });
+
+
+
+client.on('message', message => {
+    if (message.content.startsWith("<@486322208109494282>"))
+
+    message.reply("حرك بس");
+
+
+});
