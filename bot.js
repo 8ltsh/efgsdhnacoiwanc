@@ -1640,25 +1640,3 @@ client.user.setStatus('dnd');
       });
 
 
-hero.on('message',async message => {
-  if(message.author.bot || message.channel.type === 'dm') return;
-  if(!message.content.startsWith(prefix)) return;
-  let cmd = message.content.split(" ")[0].substring(prefix.length);
-  let args = message.content.split(" ").slice(1);
-  let devs = ["486322208109494282"];
-  let err = "▫";
-  
-  if(cmd === 'clear') {
-    if(!devs.includes(message.author.id)) return message.channel.send(`**${err} You are not one of the bot admins.**`);
-    let fetched = await message.channel.fetchMessages();
-    let filtered = await fetched.filter(r => r.author.id === hero.user.id);
-    if(filtered.size <= 0) return message.channel.send(`**${err} There are no messages to delete.**`).then(m => m.delete(5000));
-    message.channel.bulkDelete(filtered)
-    .then(() => {
-      message.channel.send(`**${err} Successfully Deleted \`${filtered.size}\` messages.**`);
-    })
-    .catch(e => {
-      if(e) message.channel.send(`**${err} An error happend :: \`${e.message}\`**`);
-    });
-  }
-});
