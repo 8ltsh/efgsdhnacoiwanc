@@ -1596,3 +1596,45 @@ client.on("guildMemberAdd", async member => {
   }
 });
 
+
+
+client.on('ready', function() {
+    console.log(`i am ready ${client.user.username}`);
+});
+ 
+      client.on('ready', () => {
+           
+client.user.setStatus('idle');
+     
+      });
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+client.on('ready', function() {
+    console.log(`i am ready ${client.user.username}`);
+});
+ 
+      client.on('ready', () => {
+           
+client.user.setStatus('online');
+     
+      });
+ 
+ 
+ 
+ 
+ 
+client.on('ready', function() {
+    console.log(`i am ready ${client.user.username}`);
+});
+ 
+      client.on('ready', () => {
+           
+client.user.setStatus('dnd');
+     
+      });
