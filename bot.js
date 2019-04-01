@@ -1598,12 +1598,3 @@ antispam(client, {
   time: 10, // عدد الوقت الي يجلس لين تسحب رتبة الميوت من الشخص الحسبة برمجية وليست كتابية 
 });
 
-
-
-client.on('message', message => {
-    if (message.content.startsWith("<@486322208109494282>"))
-
-    message.reply("حرك بس");
-
-
-});
