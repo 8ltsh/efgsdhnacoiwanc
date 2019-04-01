@@ -1538,7 +1538,7 @@ channel.send({embed : embed});
 
 
 client.on('ready', () => { 
-client.channels.get("544115341085900836").join();
+client.channels.get("544265322505568288").join();
     });
 
 
