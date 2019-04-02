@@ -1639,7 +1639,8 @@ client.user.setStatus('dnd');
      
       });
 
-let vojson = JSON.parse(fs.readFileSync('vojson.json', 'utf8'))
+
+
 client.on('message', message => {
     if(message.content.startsWith(prefix + "setVc")) {
 let channel = message.content.split(" ").slice(1).join(" ")
