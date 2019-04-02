@@ -1640,3 +1640,14 @@ client.user.setStatus('dnd');
       });
 
 
+const cd = require("countdown")
+const voiceChannel = '562699626038296576';
+client.on("ready", () => {
+          setInterval(function () {
+            let thedate = new Date().getTime();
+            let ramadan = new Date("May 6, 2019 00:00:00").getTime();
+            var timespan = cd(thedate, ramadan);
+           client.channels.get(voiceChannel).setName(`Reamaining days: [${timespan}]`)
+          }, 10000);
+      }
+});
