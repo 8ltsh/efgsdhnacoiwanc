@@ -1640,6 +1640,4 @@ client.on("guildMemberAdd", member => {
       .addField("**Joined At**",`${moment(member.user.joinedAt).format('D/M/YYYY h:mm a')}**n** `${moment(member.user.joinedAt).fromNow()}``,true)    
       welcome.send(embed)
 
-  }
-
   });
