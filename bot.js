@@ -1621,23 +1621,22 @@ client.user.setStatus('dnd');
 
 
 
-
-
-
-client.on("guildMemberAdd", member => {
-  let welcome = member.guild.channels.find("name","welcome-👋");
-  if(!welcome) return;
-  if(welcome) {
-      let embed = new Discord.RichEmbed()
-      .setColor("RANDOM")
-      .setThumbnail(member.user.avatarURL)  
-      .setAuthor(member.user.username , member.user.avatarURL)
-      .addField("**Welcome To**", `[${member.guild.name}]`, true)
-      .addField(`**Number**`, `[${member.guild.memberCount}]`, true)
-      .addField("**Name**", `[${member.user.username}#${member.user.discriminator}]`,true)
-      .addField("**ID**", `[${member.user.id}]`, true)
-      .addField('**Created AT**',`${moment(member.user.createdAt).format('D/M/YYYY h:mm a')}**n** `${moment(member.user.createdAt).fromNow()}``,true)            
-      .addField("**Joined At**",`${moment(member.user.joinedAt).format('D/M/YYYY h:mm a')}**n** `${moment(member.user.joinedAt).fromNow()}``,true)    
-      welcome.send(embed)
-
-  });
+ client.on('message',async message => {
+    if(message.content.startsWith(prefix + "restart")) {
+        if(message.author.id !== "486322208109494282") return message.reply('انت لست صاحب البوت!!!');
+        message.channel.send('**Restarting.**').then(msg => {
+            setTimeout(() => {
+               msg.edit('**Restarting..**');
+            },1000);
+            setTimeout(() => {
+               msg.edit('**Restarting...**');
+            },2000);
+        });
+        console.log(`${message.author.tag} [ ${message.author.id} ] تم إعادة تشغيل البوت بنجاح!`);
+        console.log(`Restarting..`);
+        setTimeout(() => {
+            client.destroy();
+            client.login('process.env.BOT_TOKEN');
+        },3000);
+    }
+});
