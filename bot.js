@@ -1631,10 +1631,18 @@ client.on("message", message => {
         if( !args[0] ) return message.reply( '**:x: يرجى وضع الشخص المراد سحب منه الرتبة**' );
         if( !args[1] ) return message.reply( '**:x: يرجى وضع الرتبة المراد سحبها من الشخص**' );
         var role = msg.split(' ').slice(2).join(" ").toLowerCase();
+ if (!message.member.hasPermission("MANAGE_CHANNELS")) {
+            message.reply("** You do not have enough permissions ** | ❌");
+            return {};
+        }
         var role1 = message.guild.roles.filter( r=>r.name.toLowerCase().indexOf(role)>-1 ).first();
         if( !role1 ) return message.reply( '**:x: يرجى وضع الرتبة المراد سحبها من الشخص**' );if( message.mentions.members.first() ){
             message.mentions.members.first().removeRole( role1 );
             return message.reply('**:white_check_mark: [ '+role1.name+' ] رتبة [ '+args[0]+' ] تم سحب من **');
+ if (!message.member.hasPermission("MANAGE_CHANNELS")) {
+            message.reply("** You do not have enough permissions ** | ❌");
+            return {};
+        }
         }
         if( args[0].toLowerCase() == "all" ){
             message.guild.members.forEach(m=>m.removeRole( role1 ))
@@ -1645,6 +1653,10 @@ client.on("message", message => {
         } else if( args[0].toLowerCase() == "humans" ){
             message.guild.members.filter(m=>!m.user.bot).forEach(m=>m.removeRole(role1))
             return  message.reply('**:white_check_mark: [ '+role1.name+' ] تم سحب من البشريين رتبة**');
+ if (!message.member.hasPermission("MANAGE_CHANNELS")) {
+            message.reply("** You do not have enough permissions ** | ❌");
+            return {};
+        }
         }  
     } else {
         if( !args[0] ) return message.reply( '**:x: يرجى وضع الشخص المراد اعطائها الرتبة**' );
@@ -1654,6 +1666,10 @@ client.on("message", message => {
         if( !role1 ) return message.reply( '**:x: يرجى وضع الرتبة المراد اعطائها للشخص**' );if( message.mentions.members.first() ){
             message.mentions.members.first().addRole( role1 );
             return message.reply('**:white_check_mark: [ '+role1.name+' ] رتبة [ '+args[0]+' ] تم اعطاء **');
+            if (!message.member.hasPermission("MANAGE_CHANNELS")) {
+                   message.reply("** You do not have enough permissions ** | ❌");
+                      return {};
+        }
         }
         if( args[0].toLowerCase() == "all" ){
             message.guild.members.forEach(m=>m.addRole( role1 ))
