@@ -1524,23 +1524,24 @@ client.on('voiceStateUpdate', (oldM, newM) => {
 
 
 
-client.on('guildMemberAdd', member => {
-    var embed = new Discord.RichEmbed()
-    .setThumbnail(member.user.avatarURL)
-  .addField("***شكرا الانضمامك الينا***" ,member.user.username )
-    .setDescription('***نتمنى ان تحضى بوقت جميل معنى***')
-    .setColor('RANDOM')
-    .setImage('https://cdn.discordapp.com/attachments/544243371439292426/558220253604347904/welcome.png')
-var channel =member.guild.channels.find('name', 'welcome-👋')
-if (!channel) return;
-channel.send({embed : embed});
-});
+client.on("guildMemberAdd", member => {
+  let welcome = member.guild.channels.find("name","welcome-👋");
+  if(!welcome) return;
+  if(welcome) {
+      let embed = new Discord.RichEmbed()
+      .setColor("RANDOM")
+      .setThumbnail(member.user.avatarURL)  
+      .setAuthor(member.user.username , member.user.avatarURL)
+      .addField("**Welcome To**", `[${member.guild.name}]`, true)
+      .addField(`**Number**`, `[${member.guild.memberCount}]`, true)
+      .addField("**Name**", `[${member.user.username}#${member.user.discriminator}]`,true)
+      .addField("**ID**", `[${member.user.id}]`, true)
+      .addField('**Created AT**',`${moment(member.user.createdAt).format('D/M/YYYY h:mm a')}**n** `${moment(member.user.createdAt).fromNow()}``,true)            
+      .addField("**Joined At**",`${moment(member.user.joinedAt).format('D/M/YYYY h:mm a')}**n** `${moment(member.user.joinedAt).fromNow()}``,true)    
+      welcome.send(embed)
 
-
-client.on('ready', () => { 
-client.channels.get("544265322505568288").join();
-    });
-
+  }
+  })
 
 
 
@@ -1641,14 +1642,8 @@ client.user.setStatus('dnd');
 
 
 
-
-const cd = require("countdown")
-const voiceChannel = '563028662656696326';
-client.on("ready", () => {
-          setInterval(function () {
-            let thedate = new Date().getTime();
-            let ramadan = new Date("May 6, 2019 00:00:00").getTime();
-            var timespan = cd(thedate, ramadan);
-           client.channels.get(voiceChannel).setName(`Reamaining days: [${timespan}]`)
-          }, 10000);
-});
+client.on("message", message => {
+if(message.content.starsWith("sc")) {
+message.reply(`Server Have ${msg.guild.channels.filter(m => m.type === 'category').size} Categories`)
+}
+} )
