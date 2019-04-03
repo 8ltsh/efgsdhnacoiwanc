@@ -415,7 +415,7 @@ client.on('message', message => {
             .addField('**Channels**📝 :' , `[ ${client.channels.size} ]` , true)
             .addField('**Users**🔮 :' ,`[ ${client.users.size} ]` , true)
             .addField('**Bot Name**🔰 :' , `[ ${client.user.tag} ]` , true)
-            .addField('**Bot Owner**👑 :' , `[<@486322208109494282>]` , true)
+            .addField('**Bot Owner**👑 :' , `[<@479936779139547146>]` , true)
             .setFooter(message.author.username, message.author.avatarURL)
     })
 }
@@ -460,7 +460,7 @@ client.on('message', message => {
     }); // Toxic Code
 
 
-const devs = ['486322208109494282' , '' , ''];
+const devs = ['486322208109494282' , '479936779139547146' , ''];
 
 const adminprefix = "-";
 
