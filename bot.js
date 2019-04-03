@@ -1640,10 +1640,3 @@ client.user.setStatus('dnd');
      
       });
 
-
-
-client.on("message", message => {
-if(message.content.starsWith("sc")) {
-message.reply(`Server Have ${msg.guild.channels.filter(m => m.type === 'category').size} Categories`)
-}
-} )
