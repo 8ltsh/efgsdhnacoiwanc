@@ -1621,22 +1621,52 @@ client.user.setStatus('dnd');
 
 
 
- client.on('message',async message => {
-    if(message.content.startsWith(prefix + "restart")) {
-        if(message.author.id !== "486322208109494282") return message.reply('انت لست صاحب البوت!!!');
-        message.channel.send('**Restarting.**').then(msg => {
-            setTimeout(() => {
-               msg.edit('**Restarting..**');
-            },1000);
-            setTimeout(() => {
-               msg.edit('**Restarting...**');
-            },2000);
-        });
-        console.log(`${message.author.tag} [ ${message.author.id} ] تم إعادة تشغيل البوت بنجاح!`);
-        console.log(`Restarting..`);
-        setTimeout(() => {
-            client.destroy();
-            client.login('process.env.BOT_TOKEN');
-        },3000);
+var { Client } = require("discord.js");
+var data = {};
+var client = new Client();
+client.on("message", (message) => {
+    if (message.author.bot) return;
+    if (!prefix) {
+        var prefix = "-";
     }
-});
+    if (!message.content.startsWith(prefix)) return;
+    var args = message.content.split(" ")
+    var command = args[0].slice(prefix.length);
+    switch (command) {
+        case "set-voice":
+        if (!message.member.hasPermission("MANAGE_CHANNELS")) {
+            message.reply("** You do not have enough permissions ** | ❌");
+            return {};
+        }
+        if (message.guild.channels.find(channel => channel.name.includes("sweetie online:"))) {
+            message.reply("** There is a sweetie online ** | ❌");
+            return {};
+        }
+        message.guild.createChannel(`sweetie online: [${message.guild.members.filter(member => member.voiceChannel).size}]`, "voice").then(channel => {
+            channel.setPosition(1);
+            channel.overwritePermissions(message.guild.id, {
+                CONNECT: false
+            });
+            data[channel.id] = true;
+        });
+        message.channel.send("** Done **");
+        break;
+    }
+})
+.on("ready", () => {
+    client.guilds.forEach(guild => {
+        var channel = guild.channels.find(channel => channel.name.includes("sweetie online:"))
+        if (channel) {
+            data[channel.id] = true;
+        }
+    })
+})
+.on("voiceStateUpdate", (oldMember, newMember) => {
+    newMember.guild.channels.forEach(channel => {
+        if (data[channel.id]) {
+            channel.edit({
+                name: `sweetie online: [${channel.guild.members.filter(member => member.voiceChannel).size}]`
+            });
+        }
+    });
+})
