@@ -1626,10 +1626,12 @@ client.on("message", message => {
     var args = message.content.split(' ').slice(1);
     var msg = message.content.toLowerCase();
     if( !message.guild ) return;
-    if( !msg.startsWith( prefix + 'roleq' ) ) return;
-    if( msg.toLowerCase().startsWith( prefix + 'rerole' ) ){
- switch (command) {
-        case "roleq":
+    if( !msg.startsWith( prefix + 'role' ) ) return;
+       if (!message.content.startsWith(prefix)) return;
+    var args = message.content.split(" ")
+    var command = args[0].slice(prefix.length);
+    switch (command) {
+        case "role":
         if (!message.member.hasPermission("MANAGE_CHANNELS")) {
             message.reply("** You do not have enough permissions ** | ❌");
             return {};
