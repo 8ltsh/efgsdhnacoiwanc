@@ -1622,7 +1622,7 @@ client.user.setStatus('dnd');
 
 
 
-client.on("message", message => {
+
  
     var args = message.content.split(' ').slice(1);
     var msg = message.content.toLowerCase();
