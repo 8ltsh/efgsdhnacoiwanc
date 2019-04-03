@@ -1624,11 +1624,16 @@ client.user.setStatus('dnd');
 
 
  
-    var args = message.content.split(' ').slice(1);
-    var msg = message.content.toLowerCase();
-    if( !message.guild ) return;
-    if(command == 'role' ) {
-    if(!message.member.hasPermission("ADMINISTRATOR")) return message.channel.send(`لاتمتلك الصلاحيات لفعل ذلك! ❌`);
+    client.on('message', async message => {//alpha codes & Mrx -Dev
+        if (message.content.startsWith(prefix + 'role')) {//alpha codes & Mrx -Dev
+          var args = message.content.split(' ').slice(2);
+          let member = message.mentions.members.first();
+          let role = message.guild.roles.find(r => r.name == args);
+          if(!role) return message.channel.send(':no_entry: | I couldnmt find the role!');
+          if(role.name === '@everyone') return message.channel.send(':no_entry: | I couldn,t find the role!');
+            if (!args) message.reply(Type Name Role)
+            if (!member) message.reply(mention someone !)
+            if(!message.member.hasPermission('MANAGE_ROLES')) return message.channel.send('You Do not have permission MANAGE_ROLES' );
         if( !args[0] ) return message.reply( '**:x: يرجى وضع الشخص المراد سحب منه الرتبة**' );
         if( !args[1] ) return message.reply( '**:x: يرجى وضع الرتبة المراد سحبها من الشخص**' );
         var role = msg.split(' ').slice(2).join(" ").toLowerCase();
