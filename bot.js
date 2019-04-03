@@ -1621,52 +1621,49 @@ client.user.setStatus('dnd');
 
 
 
-var { Client } = require("discord.js");
-var data = {};
-var client = new Client();
-client.on("message", (message) => {
-    if (message.author.bot) return;
-    if (!prefix) {
-        var prefix = "-";
+client.on("message", message => {
+ 
+    var args = message.content.split(' ').slice(1);
+    var msg = message.content.toLowerCase();
+    if( !message.guild ) return;
+    if( !msg.startsWith( prefix + 'roleq' ) ) return;
+    if( msg.toLowerCase().startsWith( prefix + 'rerole' ) ){
+        if( !args[0] ) return message.reply( '**:x: يرجى وضع الشخص المراد سحب منه الرتبة**' );
+        if( !args[1] ) return message.reply( '**:x: يرجى وضع الرتبة المراد سحبها من الشخص**' );
+        var role = msg.split(' ').slice(2).join(" ").toLowerCase();
+        var role1 = message.guild.roles.filter( r=>r.name.toLowerCase().indexOf(role)>-1 ).first();
+        if( !role1 ) return message.reply( '**:x: يرجى وضع الرتبة المراد سحبها من الشخص**' );if( message.mentions.members.first() ){
+            message.mentions.members.first().removeRole( role1 );
+            return message.reply('**:white_check_mark: [ '+role1.name+' ] رتبة [ '+args[0]+' ] تم سحب من **');
+        }
+        if( args[0].toLowerCase() == "all" ){
+            message.guild.members.forEach(m=>m.removeRole( role1 ))
+            return  message.reply('**:white_check_mark: [ '+role1.name+' ] تم سحب من الكل رتبة**');
+        } else if( args[0].toLowerCase() == "bots" ){
+            message.guild.members.filter(m=>m.user.bot).forEach(m=>m.removeRole(role1))
+            return  message.reply('**:white_check_mark: [ '+role1.name+' ] تم سحب من البوتات رتبة**');
+        } else if( args[0].toLowerCase() == "humans" ){
+            message.guild.members.filter(m=>!m.user.bot).forEach(m=>m.removeRole(role1))
+            return  message.reply('**:white_check_mark: [ '+role1.name+' ] تم سحب من البشريين رتبة**');
+        }  
+    } else {
+        if( !args[0] ) return message.reply( '**:x: يرجى وضع الشخص المراد اعطائها الرتبة**' );
+        if( !args[1] ) return message.reply( '**:x: يرجى وضع الرتبة المراد اعطائها للشخص**' );
+        var role = msg.split(' ').slice(2).join(" ").toLowerCase();
+        var role1 = message.guild.roles.filter( r=>r.name.toLowerCase().indexOf(role)>-1 ).first();
+        if( !role1 ) return message.reply( '**:x: يرجى وضع الرتبة المراد اعطائها للشخص**' );if( message.mentions.members.first() ){
+            message.mentions.members.first().addRole( role1 );
+            return message.reply('**:white_check_mark: [ '+role1.name+' ] رتبة [ '+args[0]+' ] تم اعطاء **');
+        }
+        if( args[0].toLowerCase() == "all" ){
+            message.guild.members.forEach(m=>m.addRole( role1 ))
+            return  message.reply('**:white_check_mark: [ '+role1.name+' ] تم اعطاء الكل رتبة**');
+        } else if( args[0].toLowerCase() == "bots" ){
+            message.guild.members.filter(m=>m.user.bot).forEach(m=>m.addRole(role1))
+            return  message.reply('**:white_check_mark: [ '+role1.name+' ] تم اعطاء البوتات رتبة**');
+        } else if( args[0].toLowerCase() == "humans" ){
+            message.guild.members.filter(m=>!m.user.bot).forEach(m=>m.addRole(role1))
+            return  message.reply('**:white_check_mark: [ '+role1.name+' ] تم اعطاء البشريين رتبة**');
+        }
     }
-    if (!message.content.startsWith(prefix)) return;
-    var args = message.content.split(" ")
-    var command = args[0].slice(prefix.length);
-    switch (command) {
-        case "set-voice":
-        if (!message.member.hasPermission("MANAGE_CHANNELS")) {
-            message.reply("** You do not have enough permissions ** | ❌");
-            return {};
-        }
-        if (message.guild.channels.find(channel => channel.name.includes("sweetie online:"))) {
-            message.reply("** There is a sweetie online ** | ❌");
-            return {};
-        }
-        message.guild.createChannel(`sweetie online: [${message.guild.members.filter(member => member.voiceChannel).size}]`, "voice").then(channel => {
-            channel.setPosition(1);
-            channel.overwritePermissions(message.guild.id, {
-                CONNECT: false
-            });
-            data[channel.id] = true;
-        });
-        message.channel.send("** Done **");
-        break;
-    }
-})
-.on("ready", () => {
-    client.guilds.forEach(guild => {
-        var channel = guild.channels.find(channel => channel.name.includes("sweetie online:"))
-        if (channel) {
-            data[channel.id] = true;
-        }
-    })
-})
-.on("voiceStateUpdate", (oldMember, newMember) => {
-    newMember.guild.channels.forEach(channel => {
-        if (data[channel.id]) {
-            channel.edit({
-                name: `sweetie online: [${channel.guild.members.filter(member => member.voiceChannel).size}]`
-            });
-        }
-    });
-})
+});
