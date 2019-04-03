@@ -1628,6 +1628,12 @@ client.on("message", message => {
     if( !message.guild ) return;
     if( !msg.startsWith( prefix + 'roleq' ) ) return;
     if( msg.toLowerCase().startsWith( prefix + 'rerole' ) ){
+ switch (command) {
+        case "roleq":
+        if (!message.member.hasPermission("MANAGE_CHANNELS")) {
+            message.reply("** You do not have enough permissions ** | ❌");
+            return {};
+        }
         if( !args[0] ) return message.reply( '**:x: يرجى وضع الشخص المراد سحب منه الرتبة**' );
         if( !args[1] ) return message.reply( '**:x: يرجى وضع الرتبة المراد سحبها من الشخص**' );
         var role = msg.split(' ').slice(2).join(" ").toLowerCase();
