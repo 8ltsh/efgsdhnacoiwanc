@@ -1706,3 +1706,33 @@ client.on('voiceStateUpdate', (oldMember , newMember) => {
                     return;
                     }
         });
+
+
+
+
+const Discord = require("discord.js");
+const client = new Discord.Client();
+const fs = require("fs");
+client.on('error', err => {console.log(err)});
+const members = JSON.parse(fs.readFileSync("./members.json")) || {};
+client.on('ready', () => {
+  console.log(Logged in as ${client.user.tag}!);
+  client.guilds.forEach(g=> !members[g.id] ? members[g.id] = {} : null)
+});
+
+client.on("guildMemberRemove", member=>{
+  let roles = [];
+  member.roles.forEach(r=> roles.push(r.id));
+  members[member.guild.id][member.id] = roles;
+  saveChanges();
+});
+client.on("guildMemberAdd", member=> {
+  if(members[member.guild.id][member.id] !== undefined){
+    member.addRoles(members[member.guild.id][member.id], "Returning roles after leaving");
+    members[member.guild.id][member.id] = [];
+  };
+  saveChanges();
+});
+function saveChanges(){
+  fs.writeFileSync("./members.json", JSON.stringify(members, null, 4));
+};
