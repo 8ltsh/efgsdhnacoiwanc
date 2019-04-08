@@ -1695,7 +1695,7 @@ fs.writeFile("./vojson.json", JSON.stringify(vojson), (err) => {
 client.on('message', ( message ) => {
   if(message.author.bot) return;
 
-  if(message.channel.id !== '563042185000517673') return;
+  if(message.channel.id !== '544266955125686284') return;
 
   let types = [
     'jpg',
@@ -1735,26 +1735,39 @@ if(message.attachments.size >= 1) {
 
 
 
-client.on('message', n3k4a => {
-  let args = n3k4a.content.split(" ").slice(1).join(" ")
-  if (n3k4a.content.startsWith(${prefix}sn)) {
-                if (!n3k4a.member.hasPermission("MANAGE_SERVER"))  return;
-                if(!args) return n3k4a.channel.send('**يرجي ادخال اسم السرفر الجديد**');
-                n3k4a.guild.owner.send(**تم تغيير اسم السرفر الي ${args}
-                بواسطة : <@${n3k4a.author.id}>**)
-                n3k4a.guild.setName(args)
-                n3k4a.channel.send(**تم تغير اسم السيرفر الي : __${args}__ **);
+client.on("message", message => {
+  let mmember = message.mentions.users.first();
+  if(message.content.startsWith(prefix + "vkick")) {
+    try {
+    if(!mmember) {
+      message.channel.send("Write The User");
+      return;
+    }
+    if(!message.guild.member(mmember).voiceChannel) return message.channel.send("The User Is Not In A Voice Channel");
+    let rank = message.guild.member(message.author).roles.find('name', '');
 
-       }
+    if (!rank) return message.channel.send('You Dont Have Perm');
 
-       });
+    message.guild.createChannel("vkick", "voice").then(c => {
+      message.guild.member(mmember).setVoiceChannel(c.id)
+    setTimeout(() => {
+      c.delete()
+    }, 100)
+    });
+    message.channel.send(**${member.tag} Has Been Kicked from The Voice Channel**)
+} catch (e) {
+  message.channel.send("");
+}
+  const embed = new Discord.RichEmbed()
+    .setColor("RANDOM")
+    .setAuthor("New Voice Kick", mmember.displayAvatarURL)
+    .setThumbnail(message.author.avatarURL)
+    .addField("Voice Kicked User:", [${mmember.tag}])
+    .addField("User Kicked By:", [${message.author.username}]);
 
-client.on('message', message => { //Toxic Codes
-    if(message.channel.type === 'dm') {//Toxic Codes
-        var guildID = '551368957467033620'; // <=============== ايدي السيرفر حقك
-        if(message.content.includes('discord.gg/')) {//Toxic Codes 
-            var member = client.guilds.find(g => g.id === guildID).members.find(m => m.id === message.author.id); //Toxic Codes
-            member.ban({ reason: 'ADS In Private.' }).catch(); //Toxic Codes
-        }//Toxic Codes
-    }//Toxic Codes
-}); //Toxic Codes
+     let vKickChannel = message.guild.channels.find(name,"log");
+
+      message.delete().catch(O_o=>{});
+      vKickChannel.send(embed);
+  }
+});
