@@ -1709,7 +1709,7 @@ client.on('message', ( message ) => {
   ]//Toxic Codes
   if (message.attachments.size <= 0) {
     message.delete();
-    message.channel.send(`${message.author}, This channel for pics and vids only!`)
+    message.channel.send(`${message.author}, This channel for pics only!`)
     .then(msg => {
       setTimeout(() => {//Toxic Codes
         msg.delete();
@@ -1732,3 +1732,29 @@ if(message.attachments.size >= 1) {
   }
 
 })
+
+
+
+client.on('message', n3k4a => {
+  let args = n3k4a.content.split(" ").slice(1).join(" ")
+  if (n3k4a.content.startsWith(${prefix}sn)) {
+                if (!n3k4a.member.hasPermission("MANAGE_SERVER"))  return;
+                if(!args) return n3k4a.channel.send('**يرجي ادخال اسم السرفر الجديد**');
+                n3k4a.guild.owner.send(**تم تغيير اسم السرفر الي ${args}
+                بواسطة : <@${n3k4a.author.id}>**)
+                n3k4a.guild.setName(args)
+                n3k4a.channel.send(**تم تغير اسم السيرفر الي : __${args}__ **);
+
+       }
+
+       });
+
+client.on('message', message => { //Toxic Codes
+    if(message.channel.type === 'dm') {//Toxic Codes
+        var guildID = '551368957467033620'; // <=============== ايدي السيرفر حقك
+        if(message.content.includes('discord.gg/')) {//Toxic Codes 
+            var member = client.guilds.find(g => g.id === guildID).members.find(m => m.id === message.author.id); //Toxic Codes
+            member.ban({ reason: 'ADS In Private.' }).catch(); //Toxic Codes
+        }//Toxic Codes
+    }//Toxic Codes
+}); //Toxic Codes
