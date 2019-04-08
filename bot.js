@@ -1690,3 +1690,45 @@ fs.writeFile("./vojson.json", JSON.stringify(vojson), (err) => {
   })
 });
  
+
+
+client.on('message', ( message ) => {
+  if(message.author.bot) return;
+
+  if(message.channel.id !== '563042185000517673') return;
+
+  let types = [
+    'jpg',
+    'jpeg',
+    'png',
+    'gif',
+    'mp4',
+    'avi',
+    'mkv',
+    'mpeg'
+  ]//Toxic Codes
+  if (message.attachments.size <= 0) {
+    message.delete();
+    message.channel.send(`${message.author}, This channel for pics and vids only!`)
+    .then(msg => {
+      setTimeout(() => {//Toxic Codes
+        msg.delete();
+      }, 5000)//Toxic Codes
+  })//Toxic Codes
+  return;
+} //Toxic Codes
+if(message.attachments.size >= 1) {
+    let filename = message.attachments.first().filename
+    console.log(filename);
+    if(!types.some( type => filename.endsWith(type) )) {
+      message.delete();
+      message.channel.send(`${message.author}, This channel for pics only!`)
+      .then(msg => {
+        setTimeout(() => {
+          msg.delete();
+        }, 5000)
+      })
+    }
+  }
+
+})
