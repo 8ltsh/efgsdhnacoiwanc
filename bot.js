@@ -1760,4 +1760,5 @@ client.on("guildMemberAdd", member=> {
 function saveChanges(){
   fs.writeFileSync("./members.json", JSON.stringify(members, null, 4));
 };
+client.login("token")
 
