@@ -1738,7 +1738,7 @@ if(message.attachments.size >= 1) {
 
 
 client.on("guildMemberAdd", member => {
-  let welcome = member.guild.channels.find("name","welcome-👋");
+  let welcome = member.guild.channels.find("name","welcome");
   if(!welcome) return;
   if(welcome) {
       let embed = new Discord.RichEmbed()
