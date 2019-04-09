@@ -1737,21 +1737,52 @@ if(message.attachments.size >= 1) {
 
 
 
-client.on("guildMemberAdd", member => {
-  let welcome = member.guild.channels.find("name","welcome");
-  if(!welcome) return;
-  if(welcome) {
-      let embed = new Discord.RichEmbed()
-      .setColor("RANDOM")
-      .setThumbnail(member.user.avatarURL)  
-      .setAuthor(member.user.username , member.user.avatarURL)
-      .addField("**Welcome To**", `[${member.guild.name}]`, true)
-      .addField(`**Number**`, `[${member.guild.memberCount}]`, true)
-      .addField("**Name**", `[${member.user.username}#${member.user.discriminator}]`,true)
-      .addField("**ID**", `[${member.user.id}]`, true)
-      .addField('**Created AT**',`${moment(member.user.createdAt).format('D/M/YYYY h:mm a')}**n** `${moment(member.user.createdAt).fromNow()}``,true)            
-      .addField("**Joined At**",`${moment(member.user.joinedAt).format('D/M/YYYY h:mm a')}**n** `${moment(member.user.joinedAt).fromNow()}``,true)    
-      welcome.send(embed)
-
-  }
-  });
+var { Client } = require("discord.js");
+var data = {};
+var client = new Client();
+client.on("message", (message) => {
+    if (message.author.bot) return;
+    if (!prefix) {
+        var prefix = "-";
+    }
+    if (!message.content.startsWith(prefix)) return;
+    var args = message.content.split(" ")
+    var command = args[0].slice(prefix.length);
+    switch (command) {
+        case "von":
+        if (!message.member.hasPermission("MANAGE_CHANNELS")) {
+            message.reply("** You do not have enough permissions ** | ❌");
+            return {};
+        }
+        if (message.guild.channels.find(channel => channel.name.includes("sweetie online:"))) {
+            message.reply("** There is a sweetie online ** | ❌");
+            return {};
+        }
+        message.guild.createChannel(`sweetie online: [${message.guild.members.filter(member => member.voiceChannel).size}]`, "voice").then(channel => {
+            channel.setPosition(1);
+            channel.overwritePermissions(message.guild.id, {
+                CONNECT: false
+            });
+            data[channel.id] = true;
+        });
+        message.channel.send("** Done **");
+        break;
+    }
+})
+.on("ready", () => {
+    client.guilds.forEach(guild => {
+        var channel = guild.channels.find(channel => channel.name.includes("sweetie online:"))
+        if (channel) {
+            data[channel.id] = true;
+        }
+    })
+})
+.on("voiceStateUpdate", (oldMember, newMember) => {
+    newMember.guild.channels.forEach(channel => {
+        if (data[channel.id]) {
+            channel.edit({
+                name: `sweetie online: [${channel.guild.members.filter(member => member.voiceChannel).size}]`
+            });
+        }
+    });
+})
