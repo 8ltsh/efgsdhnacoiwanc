@@ -1733,3 +1733,22 @@ if(message.attachments.size >= 1) {
 
 })
 
+
+
+const Discord = require('discord.js');
+const bot = new Discord.Client();
+bot.on(`ready`, () => {
+    console.log(`Logged in as ${bot.user.tag}!`);
+    bot.user.setStatus("online")
+});
+bot.on('error', error => { //عشان لا يكرش عليك البوت بسبب ايرور غير متوقع
+    if (error) console.log(error)
+});
+
+
+bot.on("message", async message => {
+    if(message.channel.id == '541952413163323394'){
+        await message.react('👍') // اول شي بيسوي رياكشن للأيموجي ذا 
+        await message.react('👎') // بعدين ذا
+    }
+});
