@@ -1747,7 +1747,7 @@ client.on('message', message => {
     if (message.content === "-help") {
     let embed = new Discord.RichEmbed()
   .setAuthor(message.author.username)
-  .setFooter(`© SHYBOY_05 ™.`, 'test')
+  .setFooter(`صصص')
   .setColor("#000000")
   .addField("Done | تــــم" , ":envelope: | :sleuth_or_spy::skin-tone-3:شيك علي في الخاص")
  ['HI}
