@@ -1029,46 +1029,6 @@ client.on('message' , message => {
 
 
 
-client.on('message', async message => {//alpha codes & Mrx -Dev
-        if (message.content.startsWith(prefix + 'role')) {//alpha codes & Mrx -Dev
-          var args = message.content.split(' ').slice(2);
-          let member = message.mentions.members.first();
-          let role = message.guild.roles.find(r => r.name == args);
-          if(!role) return message.channel.send(':no_entry: | I couldnmt find the role!');
-          if(role.name === '@everyone') return message.channel.send(':no_entry: | I couldn,t find the role!');
-            if (!args) message.reply(`Type Name Role`)
-            if (!member) message.reply(`mention someone !`)
-            if(!message.member.hasPermission('MANAGE_ROLES')) return message.channel.send('**You Do not have permission** `MANAGE_ROLES`' );
-            await message.channel.sendMessage(`**🎁To Give Role
-    :x: To Cancel the process **`).then(e => {//alpha codes & Mrx -Dev
-                e.react("🎁")//alpha codes & Mrx -Dev
-                .then(()=> e.react("❌"))//alpha codes & Mrx -Dev
-                .then(()=> e.react("🎁")).then(() => c.delete(12000))//alpha codes & Mrx -Dev
-                let reaction1Filter = (reaction, user) => reaction.emoji.name === '🎁' && user.id === message.author.id;//alpha codes & Mrx -Dev
-                let reaction2Filter = (reaction, user) => reaction.emoji.name === '❌' && user.id === message.author.id;//alpha codes & Mrx -Dev
-                let reaction1 = e.createReactionCollector(reaction1Filter, { time: 12000 });//alpha codes & Mrx -Dev
-                let reaction2 =e.createReactionCollector(reaction2Filter, { time: 12000 });//alpha codes & Mrx -Dev
-                reaction1.on("collect", c => {//alpha codes & Mrx -Dev
-                  member.addRole(role);
-                  e.edit(`:white_check_mark: | <@${member.id}> Successfully give The role **${role.name}** .`).then(c => {
-                     c.delete(5000).then(()=>{
-                       msg.delete()
-                             })
-                     })
-                    }
-      
-                        )//alpha codes & Mrx -Dev
-                        reaction2.on("collect", c => {//alpha codes & Mrx -Dev
-                          e.edit('**Successfully Canceled :x:**').then(c => {
-                            c.delete(5000)
-                            message.delete()
-                            
-            })
-          })
-        }
-            )}
-            
-    });
 
 
 client.on('message', message => {
@@ -1764,12 +1724,12 @@ client.on('guildMemberAdd', member => {
 
 
 client.on('message', message => { 
-    var prefix = "$";
+    var prefix = "-";
     if (message.author.boss) return;
     if (!message.content.startsWith(prefix)) return;
     let command = message.content.split(" ")[0];
     command = command.slice(prefix.length);
-    if (command == "Roleadd") {
+    if (command == "role") {
     if (!message.channel.guild) return;
     if(!message.guild.member(message.author).hasPermission("MANAGE_ROLES")) return message.reply("**🚫انت لا تملك صلاحيات **").then(msg => msg.delete(5000));;
     if(!message.guild.member(client.user).hasPermission("MANAGE_ROLES")) return message.reply("البوت لايملك صلاحيات ").then(msg => msg.delete(5000));;
@@ -1781,3 +1741,18 @@ client.on('message', message => {
     message.reply('*** Done ✅  ***').then(msg => {msg.delete(10000)});
     }
     });
+
+
+client.on('message', message => {
+    if (message.content === "-help") {
+    let embed = new Discord.RichEmbed()
+  .setAuthor(message.author.username)
+  .setFooter(`© SHYBOY_05 ™.`, 'https://images-ext-2.discordapp.net/external/X9SanEG0s7Dtv3krTgy-kod_fj6JRVJ2AG4JryCiiz0/%3Fsize%3D2048/https/cdn.discordapp.com/avatars/375761288518828042/fffa31c797e88cf059dd6db424ff456a.png?width=80&height=80')
+  .setColor("#000000")
+  .addField("Done | تــــم" , ":envelope: | :sleuth_or_spy::skin-tone-3:شيك علي في الخاص")
+ 
+ 
+ 
+  message.channel.sendEmbed(embed);
+  }
+  });
