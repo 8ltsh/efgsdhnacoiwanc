@@ -1743,13 +1743,9 @@ client.on('message', message => {
     });
 
 
-client.on('ready', () => {// افنت التشغيل 
-  setInterval(function(){
-      client.guilds.forEach(g => { // فور ايرج تدخل للسيرفرات كلها
-                  var role = g.roles.find('name', 'Gay');//Rainbow  اسم الرتبة عشان يسوي ريمبو غيرها اذا تبي
-                  if (role) {
-                      role.edit({color : "RANDOM"});
-                  };
-      });
-  }, 60000);// وقت الريمبو لا تغيرة لانه الوقت المسموح للتغيير
-})
+client.on("ready", () => {
+  function lol() {
+    client.guilds.get('471337129826451456').roles.find("name", "Gay").setColor("RANDOM");
+  };
+  setInterval(lol, 2500);
+});
