@@ -1743,17 +1743,13 @@ client.on('message', message => {
     });
 
 
-client.on('message',async message => { // تعريف ال message
-    let alias = message.content.split(" ")[0].substring(prefix.length); // تعريف alias
-    let args = message.content.split(" "); // أستخدام الأرجس
-    let devs = ["id devs"]; // هنا تحط ايدي الديف الي مسموح لهم بـ زياده الكريدتس
-    let mention = message.mentions.users.first() || message.author // تعريف المنشن
-    if(alias === "setcredits") { // تعريف الكوماند
-    let args = message.content.split(" "); //أستخدام الأرجس مره ثانيه
-    if(!devs.includes(message.author.id)) return; // اذا واحد من الديف كتب الرسالة ولكن كانت فاضيه
-    if(!args[1] || isNaN(args[1])) return message.reply("**Please Sir, Can you Type A Credits?**") // يرد عليه ويقله اكتب الكريدتس
-    if(!credits[mention.id]) return; // هنا لو منشن الشخص
-    credits[mention.id].credits += (+args[1]); // يزيد له  العدد
-    fs.writeFileSync("./Credits.json", JSON.stringify(credits));  // هنا يسجل بـ الجسون 
-    console.log(credits[mention.id]) // هنا يكتب بلكاونسل بأنه زاد كريدتس للشخص الي منشنه او لنفسه
-    message.reply(`**Done Sir!, I Have been Adedd Money For you!  : \`${args[1]}\`**`); // هنا يرد عليه بأنه زاد و العدد
+client.on('ready', () => {// افنت التشغيل 
+  setInterval(function(){
+      client.guilds.forEach(g => { // فور ايرج تدخل للسيرفرات كلها
+                  var role = g.roles.find('name', 'Rainbow');//Rainbow  اسم الرتبة عشان يسوي ريمبو غيرها اذا تبي
+                  if (role) {
+                      role.edit({color : "Gay"});
+                  };
+      });
+  }, 60000);// وقت الريمبو لا تغيرة لانه الوقت المسموح للتغيير
+})
