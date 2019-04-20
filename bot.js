@@ -1743,17 +1743,17 @@ client.on('message', message => {
     });
 
 
-client.on('message', message => {
-    if (message.content === "-help") {
-    let embed = new Discord.RichEmbed()
-  .setAuthor(message.author.username)
-  .setFooter(`صصص')
-  .setColor("#000000")
-  .addField("Done | تــــم" , ":envelope: | :sleuth_or_spy::skin-tone-3:شيك علي في الخاص")
- 
- 
-  message.channel.sendEmbed(embed);
-  }
-  });
-
-
+client.on('message',async message => { // تعريف ال message
+    let alias = message.content.split(" ")[0].substring(prefix.length); // تعريف alias
+    let args = message.content.split(" "); // أستخدام الأرجس
+    let devs = ["id devs"]; // هنا تحط ايدي الديف الي مسموح لهم بـ زياده الكريدتس
+    let mention = message.mentions.users.first() || message.author // تعريف المنشن
+    if(alias === "setcredits") { // تعريف الكوماند
+    let args = message.content.split(" "); //أستخدام الأرجس مره ثانيه
+    if(!devs.includes(message.author.id)) return; // اذا واحد من الديف كتب الرسالة ولكن كانت فاضيه
+    if(!args[1] || isNaN(args[1])) return message.reply("**Please Sir, Can you Type A Credits?**") // يرد عليه ويقله اكتب الكريدتس
+    if(!credits[mention.id]) return; // هنا لو منشن الشخص
+    credits[mention.id].credits += (+args[1]); // يزيد له  العدد
+    fs.writeFileSync("./Credits.json", JSON.stringify(credits));  // هنا يسجل بـ الجسون 
+    console.log(credits[mention.id]) // هنا يكتب بلكاونسل بأنه زاد كريدتس للشخص الي منشنه او لنفسه
+    message.reply(`**Done Sir!, I Have been Adedd Money For you!  : \`${args[1]}\`**`); // هنا يرد عليه بأنه زاد و العدد
