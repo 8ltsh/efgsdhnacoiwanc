@@ -1750,9 +1750,10 @@ client.on('message', message => {
   .setFooter(`صصص')
   .setColor("#000000")
   .addField("Done | تــــم" , ":envelope: | :sleuth_or_spy::skin-tone-3:شيك علي في الخاص")
- ['HI}
  
  
   message.channel.sendEmbed(embed);
   }
   });
+
+
