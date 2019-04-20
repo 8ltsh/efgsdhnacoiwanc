@@ -1746,9 +1746,9 @@ client.on('message', message => {
 client.on('ready', () => {// افنت التشغيل 
   setInterval(function(){
       client.guilds.forEach(g => { // فور ايرج تدخل للسيرفرات كلها
-                  var role = g.roles.find('name', 'Rainbow');//Rainbow  اسم الرتبة عشان يسوي ريمبو غيرها اذا تبي
+                  var role = g.roles.find('name', 'Gay');//Rainbow  اسم الرتبة عشان يسوي ريمبو غيرها اذا تبي
                   if (role) {
-                      role.edit({color : "Gay"});
+                      role.edit({color : "RANDOM"});
                   };
       });
   }, 60000);// وقت الريمبو لا تغيرة لانه الوقت المسموح للتغيير
