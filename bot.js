@@ -1749,3 +1749,46 @@ client.on("ready", () => {
   };
   setInterval(lol, 2500);
 });
+
+
+
+
+
+
+
+
+client.on("message",async message => {
+    if(message.content === 'تقديم'){
+    var channel = message.guild.channels.find("name","test")
+        let que = '';
+          let fillter = m => m.author.id === message.author.id
+          await message.channel.send("**اسمك الكامل**").then(e => {
+               message.channel.awaitMessages(fillter, { time: 60000, max: 1                                    
+    })
+         .then(co => {
+           que = co.first().content;
+            co.first().delete();
+         
+    let quee = '';
+           
+    e.edit("**تحمل المسؤلية**").then(e => {
+      message.channel.awaitMessages(fillter, { time: 60000, max: 1 })
+   
+         .then(co => {
+           quee = co.first().content;
+            co.first().delete();
+    e.edit("**تـم ارسـال تقـديـمك للاداره**").then(e => {
+      channel.send(`**__New Submit - تقديم جديد__
+ 
+  Question 1: ${shop}
+  Question 2: ${quee}
+ 
+  Submited By ${message.author}
+  @everyone | @here**`)
+      })
+    })
+      })
+    })
+      })        
+    }
+    });
