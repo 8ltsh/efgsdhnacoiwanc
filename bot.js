@@ -1799,18 +1799,6 @@ client.on("message",async message => {
 
 
 
-if (!Discord) {
-    var Discord = require("discord.js");
-}
-if (!client) {
-    var client = new Discord.Client();
-}
-if (!fs) {
-    var fs = require("fs");
-}
-if (!prefix) {
-    var prefix = "-";
-}
 client.on("message", (message) => {
     if (message.author.bot) return;
     if (!message.content.startsWith(prefix)) return;
