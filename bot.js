@@ -1799,34 +1799,36 @@ client.on("message",async message => {
 
 
 
-var fox = "By KillerFox";  // ممنوع اللمس
-var perfix = "By KillerFox";
-console.log('Code BC By KillerFox Embed and Avatar ');
-client.on('message', message => { // BY KillerFox or ALphaCodes
-    if (message.author.id === client.user.id) return; // BY KillerFox or ALphaCodes
-    if (message.guild) { // BY KillerFox or ALphaCodes
-   let embed = new Discord.RichEmbed()
-    let args = message.content.split(' ').slice(1).join(' '); // BY KillerFox or ALphaCodes
-if(message.content.split(' ')[0] == '-bn') { // غير امر او برفكس
-    if (!args[1]) { // BY KillerFox or ALphaCodes
-message.channel.send("**$bc <Messages> :incoming_envelope:  **"); // ممنوع المس
-return;
+if (!Discord) {
+    var Discord = require("discord.js");
 }
-        message.guild.members.forEach(m => {
-   if(!message.member.hasPermission('ADMINISTRATOR')) return; // ممنوع اللمس
-            var bc = new Discord.RichEmbed()
-            .setThumbnail(client.user.avatarURL)
-            .addField(':beginner: Server :beginner: :twisted_rightwards_arrows: ', `${message.guild.name}`)
-            .addField(':heartpulse:  Sender :heartpulse: :twisted_rightwards_arrows: ', `${message.author.username}#${message.author.discriminator}`)
-            .addField(':scroll: Message :scroll: :twisted_rightwards_arrows: ', args)
-            .addField(':gemini: My Language :gemini: :twisted_rightwards_arrows: ',` JavaScript `)
-            .setFooter('hmmmmm') // حط اي شي تبيه
-            .setColor('RANDOM')
-            // m.send(`[${m}]`);
-            m.send(`${m}`,{embed: bc});
-        });
-    }
-    } else {
-        return;
+if (!client) {
+    var client = new Discord.Client();
+}
+if (!fs) {
+    var fs = require("fs");
+}
+if (!prefix) {
+    var prefix = "-";
+}
+client.on("message", (message) => {
+    if (message.author.bot) return;
+    if (!message.content.startsWith(prefix)) return;
+    var args = message.content.split(" ");
+    var command = args[0].slice(prefix.length);
+    switch (command) {
+        case "setnews":
+        if (message.author.id !== "486322208109494282") return;
+        fs.writeFileSync("news.txt", args.slice(1).join(" "));
+        message.channel.send(`تم تغيير النيوز لـ ${args.slice(1).join(" ")}`);
+        break;
+        case "news":
+        var embed = new Discord.RichEmbed()
+        .setColor("RANDOM")
+        .setAuthor(client.user.username, client.user.avatarURL)
+        .setDescription(fs.readFileSync("news.txt", "UTF8"))
+        .setTimestamp();
+        message.channel.send(embed);
+        break;
     }
 });
