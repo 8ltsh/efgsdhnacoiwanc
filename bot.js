@@ -1805,12 +1805,12 @@ client.on("message", (message) => {
     var args = message.content.split(" ");
     var command = args[0].slice(prefix.length);
     switch (command) {
-        case "setnews":
+        case "setrules":
         if (message.author.id !== "486322208109494282") return;
         fs.writeFileSync("news.txt", args.slice(1).join(" "));
         message.channel.send(`تم تغيير النيوز لـ ${args.slice(1).join(" ")}`);
         break;
-        case "news":
+        case "rules":
         var embed = new Discord.RichEmbed()
         .setColor("RANDOM")
         .setAuthor(client.user.username, client.user.avatarURL)
