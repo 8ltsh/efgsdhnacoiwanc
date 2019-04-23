@@ -1432,7 +1432,7 @@ client.on('guildMemberAdd', member => {
         .setColor('RANDOM')
         .setThumbnail(memberavatar)
         .addField('🖤 | name :  ',`${member}`)
-        .addField('💛 | نورت السيرفر ' , `||💛🖤💛**WELCOME TO SERVER**💛🖤💛||, ${member}`)
+        .addField('💛 | نورت السيرفر ' , ``💛🖤💛**WELCOME TO SERVER**💛🖤💛`, ${member}`)
         .addField('🆔 | user :', "**[" + `${member.id}` + "]**" )
                 .addField('➡| انت العضو رقم',`${member.guild.memberCount}`)
                
@@ -1517,29 +1517,6 @@ client.on("message",async message => {
 
 
 
-client.on("message", (message) => {
-    if (message.author.bot) return;
-    if (!message.content.startsWith(prefix)) return;
-    var args = message.content.split(" ");
-    var command = args[0].slice(prefix.length);
-    switch (command) {
-        case "setrules":
-        if (message.author.id !== "486322208109494282") return;
-        fs.writeFileSync("news.txt", args.slice(1).join(" "));
-        message.channel.send(`تم تغيير الرولز لـ ${args.slice(1).join(" ")}`);
-        break;
-        case "rules":
-        var embed = new Discord.RichEmbed()
-        .setColor("RANDOM")
-        .setAuthor(client.user.username, client.user.avatarURL)
-        .setDescription(fs.readFileSync("news.txt", "UTF8"))
-        .setTimestamp();
-        message.channel.send(embed);
-        break;
-    }
-});
-
-
 
 
 client.on('message',message =>{
@@ -1563,22 +1540,6 @@ client.on('message',message =>{
       })
 
 
-
-
-client.on('message', async message => {
-  if(message.content.startsWith(prefix + "bca")) {
-    let i = client.users.size;
-    if(message.author.id !== '486322208109494282') return message.channel.send('? » امشطلعبراما تقدر');
-    var args = message.content.split(' ').slice(1).join(' ');
-    if(!args) return message.channel.send('? » :facepalm: ')
-    setTimeout(() => {
-      message.channel.send(`?? ??????? ?? ${i} ???`)
-    }, client.users.size * 500);
-    client.users.forEach(s => {
-      s.send(args).catch(e => i--);
-    });
-  }
-});
 
 
 
