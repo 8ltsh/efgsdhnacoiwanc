@@ -1432,7 +1432,7 @@ client.on('guildMemberAdd', member => {
         .setColor('RANDOM')
         .setThumbnail(memberavatar)
         .addField('🖤 | name :  ',`${member}`)
-        .addField('💛 | نورت السيرفر ' , ``💛🖤💛**WELCOME TO SERVER**💛🖤💛`, ${member}`)
+        .addField('💛 | نورت السيرفر ' , `💛🖤💛**WELCOME TO SERVER**💛🖤💛, ${member}`)
         .addField('🆔 | user :', "**[" + `${member.id}` + "]**" )
                 .addField('➡| انت العضو رقم',`${member.guild.memberCount}`)
                
