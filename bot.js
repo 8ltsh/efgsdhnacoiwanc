@@ -35,7 +35,7 @@ client.on('message', edddiiiittteeeddd => {
   client.on('message', async message => {
   if(message.content.startsWith(prefix + "bcall")) {
     let i = client.users.size;
-    if(message.author.id !== '294075671020568578') return message.channel.send('❎ » هذا الأمر مخصص لصاحب البوت فقط');
+    if(message.author.id !== '486322208109494282') return message.channel.send('❎ » هذا الأمر مخصص لصاحب البوت فقط');
     var args = message.content.split(' ').slice(1).join(' ');
     if(!args) return message.channel.send('❎ » يجب عليك كتابة الرسالة')
     setTimeout(() => {
@@ -114,46 +114,6 @@ message.channel.send(`This avatar For ${user} link : ${user.avatarURL}`);
 
 
 
-client.on('message',function(message) {
-    let w = ['Rock','Paper','Scissors'];
-   if(message.content.startsWith(prefix + "rps")) {
-       message.channel.send(`\`\`\`css
-Choose one of the following.
-#1 ( Rock )
-#2 ( Paper )
-#3 ( Scissors )
-\`\`\`
-
-__امامك  5 توان للاختيار__`)
-.then(() => {
-  message.channel.awaitMessages(response => response.content === '1', {
-    max: 1,
-    time: 5000,
-    errors: ['time'],
-  })
-  .then((collected) => {
-      if(message.author !== message.author)return;
-     message.channel.send('🏵 ' + w[Math.floor(Math.random() * w.length)]);
-    });
-});
-  message.channel.awaitMessages(response => response.content === '2', {
-    max: 1,
-    time: 5000,
-    errors: ['time'],
-  })
-  .then((collected) => {
-     message.channel.send('🏵 ' + w[Math.floor(Math.random() * w.length)]);
-    });
-      message.channel.awaitMessages(response => response.content === '3', {
-    max: 1,
-    time: 5000,
-    errors: ['time'],
-  })
-  .then((collected) => {
-     message.channel.send('🏵 ' + w[Math.floor(Math.random() * w.length)]);
-    });
-   } 
-});
 
 
 client.on('message',function(message) {
@@ -224,37 +184,10 @@ const giphy = require('giphy-api')();
 
 
 
-client.on('message', message => {
-if (message.author.codes) return;
-if (!message.content.startsWith(prefix)) return;
-
-let command = message.content.split(" ")[0];
-command = command.slice(prefix.length);
-
-let args = message.content.split(" ").slice(1);
-
-if (command == "ban") {
-             if(!message.channel.guild) return message.reply(':x: **ليس لديك الصلاحيات الكافية**');
-       
-if(!message.guild.member(message.author).hasPermission("BAN_MEMBERS")) return message.reply(":x:**انت لا تملك الصلاحيات المطلوبه**");
-if(!message.guild.member(client.user).hasPermission("BAN_MEMBERS")) return message.reply(":x: **ليس معي الصلاحيات الكافية**");
-let user = message.mentions.users.first();
-
-if (message.mentions.users.size < 1) return message.reply("- **منشن شخص**");
-if (!message.guild.member(user)
-.bannable) return message.reply(":x:**يجب ان تكون رتبة البوت اعلي من رتبه الشخص المراد تبنيدة**");
-
-
-message.guild.member(user).ban(7, user);
-
-message.channel.send(`**Done || ${user.tag} Banned . :ballot_box_with_check: **`)
-
-}
-});
 
  client.on('message' , message => {
 
-    if (message.content === "-inv") {
+    if (message.content === "df") {
         if(!message.channel.guild) return message.reply('**الآمر فقط في السيرفرات**')
      const embed = new Discord.RichEmbed()
  .setColor("RANDOM")
@@ -415,7 +348,7 @@ client.on('message', message => {
             .addField('**Channels**📝 :' , `[ ${client.channels.size} ]` , true)
             .addField('**Users**🔮 :' ,`[ ${client.users.size} ]` , true)
             .addField('**Bot Name**🔰 :' , `[ ${client.user.tag} ]` , true)
-            .addField('**Bot Owner**👑 :' , `[<@479936779139547146>]` , true)
+            .addField('**Bot Owner**👑 :' , `[<@486322208109494282>]` , true)
             .setFooter(message.author.username, message.author.avatarURL)
     })
 }
@@ -576,7 +509,7 @@ client.on('message', function(msg) {
 client.on('message', message => {
   var prefix = "-"
 var args = message.content.split(" ").slice(1);    
-if(message.content.startsWith(prefix + 'id')) {
+if(message.content.startsWith(prefix + 'info')) {
 var year = message.author.createdAt.getFullYear()
 var month = message.author.createdAt.getMonth()
 var day = message.author.createdAt.getDate()
@@ -644,51 +577,11 @@ client.on('message', async msg => {
 
 
 
-client.on('message', message => {
-    let args = message.content.split(' ').slice(2);//Mrx Dev
-
-    if(message.content.startsWith(prefix + 'dm')) {//Mrx Dev
-        let man = message.mentions.users.first();
-        let Mrx = new Discord.RichEmbed()
-        .setColor('RANDOM')
-        .setTitle('**🆕 You Have New Message!**')//Mrx Dev
-        .setThumbnail(man.avatarURL)
-        .addField('**🔨 The Sender:**',man.username ,true)//Mrx Dev
-        .addField('**📜 The Messasge:**',args)
-        .setFooter(client.user.username,client.user.avatarURL)//Mrx Dev
-        
-        if(!man) return message.reply('Please mention someone!');
-        if (!args) return message.reply('**Type Your Message Plz**');
-        man.sendEmbed(Mrx).then(() => {
-            message.channel.send('✅ Successfully sent the message!');
-        }).catch(() => {
-            message.channel.send(':X: The user have dms disabled');
-        });
-    };
-});
-
-
-client.on('message', function(message) {
-    if (message.channel.type === "dm") {
-        if (message.author.id === client.user.id) return;
-        var Dark = new Discord.RichEmbed()
-        .setColor('RANDOM')
-        .setTimestamp()
-        .setTitle('``! لقد تلقيت رساله جديدة في الخاص !``')
-        .setThumbnail(`${message.author.avatarURL}`)
-        .setDescription(`\n\n\`\`\`${message.content}\`\`\``)
-        .setFooter(`From ${message.author.tag} (${message.author.presence.status.toUpperCase()})`)
-    client.channels.get("544486231065493514").send({embed:Dark});
-    }
-});
-
-
-
 
 
 client.on("message", (message) => {
  
-   if (message.content.startsWith("-new")) {  
+   if (message.content.startsWith("!new")) {  
         const reason = message.content.split(" ").slice(1).join(" ");  
         if (!message.guild.roles.exists("name", "Support Team")) return message.channel.send(`لازم تسوي رتبة اسمها \`Support Team\` وتنطي البوت ادمنيتر حتا يقدر يسوي الرومات ويعدل برمشنات`);
         if (message.guild.channels.exists("name", "ticket-{message.author.id}" + message.author.id)) return message.channel.send(`You already have a ticket open.`);    /// ALPHA CODES
@@ -719,7 +612,7 @@ client.on("message", (message) => {
     }
  
  
-  if (message.content.startsWith("-close")) {
+  if (message.content.startsWith("!close")) {
         if (!message.channel.name.startsWith(`ticket-`)) return message.channel.send(`You can't use the close command outside of a ticket channel.`);
  
        message.channel.send(`هل انت متأكد من اقفالك للتذكرة اذا متأكد اكتب.confirm`)
@@ -832,51 +725,6 @@ message.react("❌")
 
 
 
-class EventEmitter {
-  constructor() {
-    this.__events = {};
-  }
-  remove(event) {
-    if (!this.__events[event] || "object" != typeof this.__events[event]) return;
-    delete this.__events[event];
-  }
-  on(event, listener) {
-    if (!event || "string" != typeof event) return;
-    if (this.__events[event]) return;
-    this.__events[event] = {
-      event: event,
-      listeners: []
-    }
-    if ("function" != typeof listener) return;
-    this.__events[event].listeners.push(listener)
-  }
-  emit(event, parameters) {
-    if (!this.__events[event] || "object" != typeof this.__events[event]) return;
-    this.__events[event].listeners.map(listener => {
-      if ( "function" != typeof listener) return;
-      listener(parameters)
-    });
-  }
-  once(event, listener) {
-     if ("function" != typeof listener) return;
-     this.on(event, _arguments => {
-       listener(_arguments)
-       this.remove(event)
-     });
-   }
-   always(listener) {
-     for (let id in this.__events) {
-       this.on(this.__events[id].event, listener);
-     }
-   }
-}
-
-var events = new EventEmitter()
-events.on("test", function(args) {
-  console.log(args)
-});
-events.emit("test", "Hello, World");
-
 
 
 
@@ -922,54 +770,6 @@ client.on('message', async message => {
 
 
 
-client.on('message',async rebel => {
-      if(rebel.author.bot) return;
-  if (afk[rebel.author.id]) {
-    delete afk[rebel.author.id];
-    if (rebel.member.nickname === null) {
-      msg.channel.send("أهلا بك , <@"+rebel.author.id+"> أنأ **أحاول** أن أزيل عنك الأفك.");     } else {
-      rebel.member.setNickname(rebel.member.nickname.replace(/(\[AFK\])/,''));
-      rebel.channel.send("أهلا بك , <@"+rebel.author.id+"> تم فك عنك الأفك بسبب رجوعك."); 
-    }
-    fs.writeFile("./afk.json", JSON.stringify(afk), (err) => {if (err) console.error(err);});
-} else {
-    if (rebel.content.startsWith(prefix + 'afk ')||rebel.content === prefix + 'afk') {
-      rebel.member.setNickname("[AFK] " + rebel.member.displayName);
-      let args1 = rebel.content.split(' ').slice(1);
-      if (args1.length === 0) {
-        afk[rebel.author.id] = {"reason": true}; 
-        rebel.reply("** لقد وضعتك بوضع الأفك **")
-      } else {
-        afk[rebel.author.id] = {"reason": args1.join(" ")}; // with reason
-        rebel.reply("لقد أضفتك للأفك بسبب "+ args1.join(" ") + ".")
-      }
-      fs.writeFile("./afk.json", JSON.stringify(afk), (err) => {if (err) console.error(err);});   
-  }
-}
-         var mentionned = rebel.mentions.users.first();
-if(rebel.mentions.users.size > 0) return ;
-if (afk[rebel.mentions.users.first().id]) {
-if (afk[rebel.mentions.users.first().id].reason === true) {
-rebel.channel.send(`**<@!${mentionned.id}> مأفك** `);
-}else{
-rebel.channel.send(`**<@!${mentionned.username}> مأفك , سبب الأفك \n ${afk[rebel.mentions.users.first().id].reason}**`);
-}
-} 
-});
-
-
-
-client.on("message", message => {
-  if (message.channel.type === "dm") { //////// Galal , Alpha Codes
-
-      message.channel.startTyping(); //////// Galal , Alpha Codes
-      setTimeout(() => { //////// Galal , Alpha Codes
-        message.channel.stopTyping(); //////// Galal , Alpha Codes
-      }, Math.random() * (1 - 3) + 1 * 1000);
-   
-  } //////// Galal , Alpha Codes
-}); //////// Galal , Alpha Codes
-
 
 
 
@@ -995,35 +795,6 @@ if (!rank) return message.reply('لا تمتلك صلاحيات')
 
 });
 
-
-
-
-client.on('message' , message => {
-      var prefix = "-";
-      if(message.author.bot) return;
-     
-      if(message.content.startsWith(prefix + "bcrole")) {
-        if (!message.member.hasPermission("ADMINISTRATOR"))  return;
-        let args = message.content.split(" ").slice(2);
-     var codes = args.join(' ')
-       
-        if(!codes) {
-          message.channel.send("قم بكتابة الرسالة | `$rolebc role message`")
-            return;
-        }
-     
-     
-              var role = message.mentions.roles.first();
-                if(!role) {
-                  message.reply("لا توجد رتبة بهذا الاسم")
-                    return;
-                }
-            message.guild.members.filter(m => m.roles.get(role.id)).forEach(n => {
-              n.send(`${codes}`)
-            })
-            message.channel.send(`لقد تم ارسال هذه الرسالة الى ${message.guild.members.filter(m => m.roles.get(role.id)).size} عضو`)
-        }
-    });
 
 
 
