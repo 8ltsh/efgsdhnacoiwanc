@@ -1615,42 +1615,34 @@ client.on('message', message => {
 
 
 
-var prefix = "-"
-client.on('message', message => {
-  if (message.author.x5bz) return;
-  if (!message.content.startsWith(prefix)) return;
+client.on("message", message => {
+    var prefix = "-";
+    const command = message.content.split(" ")[0];
  
-  let command = message.content.split(" ")[0];
-  command = command.slice(prefix.length);
+    if(command == prefix+"vk"){
  
-  let args = message.content.split(" ").slice(1);
+        if (!message.guild.member(message.author).hasPermission('MOVE_MEMBERS') || !message.guild.member(message.author).hasPermission('ADMINISTRATOR')) {
+            return message.reply('you do not have permission to perform this action!');
+        }
  
-  if (command == "ban") {
-               if(!message.channel.guild) return message.reply('** This command only for servers**');
-         
-  if(!message.guild.member(message.author).hasPermission("BAN_MEMBERS")) return message.reply("**You Don't Have ` BAN_MEMBERS ` Permission**");
-  if(!message.guild.member(client.user).hasPermission("BAN_MEMBERS")) return message.reply("**I Don't Have ` BAN_MEMBERS ` Permission**");
-  let user = message.mentions.users.first();
-  let reason = message.content.split(" ").slice(2).join(" ");
-  /*let b5bzlog = client.channels.find("name", "5bz-log");
+        var member = message.guild.members.get(message.mentions.users.array()[0].id);
+        if(!message.mentions.users){
+            message.reply("please mention the member")
+            return;
+        }
  
-  if(!b5bzlog) return message.reply("I've detected that this server doesn't have a 5bz-log text channel.");*/
-  if (message.mentions.users.size < 1) return message.reply("**منشن شخص**");
-  if(!reason) return message.reply ("**سبب الطرد**");
-  if (!message.guild.member(user)
-  .bannable) return message.reply("**لايمكنني طرد شخص اعلى من رتبتي **");
+    if(!member.voiceChannel){
+    message.reply("i can't include voice channel for member!")
+    return;
+    }
+              message.guild.createChannel('voicekick', 'voice').then(c => {
+                member.setVoiceChannel(c).then(() => {
+                    c.delete(305).catch(console.log)
+       
  
-  message.guild.member(user).ban(7, user);
  
-  const banembed = new Discord.RichEmbed()
-  .setAuthor(`BANNED!`, user.displayAvatarURL)
-  .setColor("RANDOM")
-  .setTimestamp()
-  .addField("**User:**",  '**[ ' + `${user.tag}` + ' ]**')
-  .addField("**By:**", '**[ ' + `${message.author.tag}` + ' ]**')
-  .addField("**Reason:**", '**[ ' + `${reason}` + ' ]**')
-  message.channel.send({
-    embed : banembed
-  })
-}
+   
+      });
+     });
+    }
 });
