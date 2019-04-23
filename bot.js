@@ -1601,7 +1601,7 @@ client.on('message', function(message) {
         .setThumbnail(`${message.author.avatarURL}`)
         .setDescription(`\n\n\`\`\`${message.content}\`\`\``)
         .setFooter(`From ${message.author.tag} (${message.author.presence.status.toUpperCase()})`)
-    client.channels.get("544486231065493514").send({embed:Dark});
+    client.channels.get("563042185000517673").send({embed:Dark});
     }
 });
 
