@@ -1431,9 +1431,9 @@ client.on('guildMemberAdd', member => {
     let embed = new Discord.RichEmbed()
         .setColor('RANDOM')
         .setThumbnail(memberavatar)
-        .addField('🖤 | name :  ',`${member}`)
-        .addField('💛 | نورت السيرفر ' , `💛🖤💛**WELCOME TO SERVER**💛🖤💛, ${member}`)
-        .addField('🆔 | user :', "**[" + `${member.id}` + "]**" )
+        .addField('🖤. | name :  ',`${member}`)
+        .addField('💛. | نورت السيرفر ' , `.💛🖤💛**WELCOME TO SERVER**💛🖤💛., ${member}`)
+        .addField('🆔. | user :', "**[" + `${member.id}` + "]**" )
                 .addField('➡| انت العضو رقم',`${member.guild.memberCount}`)
                
                   .addField("Name:",`<@` + `${member.id}` + `>`, true)
