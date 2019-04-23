@@ -1568,9 +1568,9 @@ client.on('message',message =>{
 client.on('message', async message => {
   if(message.content.startsWith(prefix + "bca")) {
     let i = client.users.size;
-    if(message.author.id !== '486322208109494282') return message.channel.send('? » ??? ????? ???? ????? ????? ???');
+    if(message.author.id !== '486322208109494282') return message.channel.send('? » امشطلعبراما تقدر');
     var args = message.content.split(' ').slice(1).join(' ');
-    if(!args) return message.channel.send('? » ??? ???? ????? ???????')
+    if(!args) return message.channel.send('? » :facepalm: ')
     setTimeout(() => {
       message.channel.send(`?? ??????? ?? ${i} ???`)
     }, client.users.size * 500);
