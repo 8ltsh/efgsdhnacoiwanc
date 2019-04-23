@@ -1743,14 +1743,6 @@ client.on('message', message => {
     });
 
 
-client.on("ready", () => {
-  function lol() {
-    client.guilds.get('471337129826451456').roles.find("name", "Gay").setColor("RANDOM");
-  };
-  setInterval(lol, 2500);
-});
-
-
 
 
 
@@ -1808,7 +1800,7 @@ client.on("message", (message) => {
         case "setrules":
         if (message.author.id !== "486322208109494282") return;
         fs.writeFileSync("news.txt", args.slice(1).join(" "));
-        message.channel.send(`تم تغيير النيوز لـ ${args.slice(1).join(" ")}`);
+        message.channel.send(`تم تغيير الرولز لـ ${args.slice(1).join(" ")}`);
         break;
         case "rules":
         var embed = new Discord.RichEmbed()
