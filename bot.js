@@ -1593,52 +1593,15 @@ client.on('message', message => {
 
 
 
-client.on("message", message => {
-  if (message.channel.type === "dm") { //////// Galal , Alpha Codes
-
-      message.channel.startTyping(); //////// Galal , Alpha Codes
-      setTimeout(() => { //////// Galal , Alpha Codes
-        message.channel.stopTyping(); //////// Galal , Alpha Codes
-      }, Math.random() * (1 - 3) + 1 * 1000);
-   
-  } //////// Galal , Alpha Codes
-}); //////// Galal , Alpha Codes
 
 
 
-
-client.on('message' , message => {
-      var prefix = "-";
-      if(message.author.bot) return;
-     
-      if(message.content.startsWith(prefix + "bcr")) {
-        if (!message.member.hasPermission("ADMINISTRATOR"))  return;
-        let args = message.content.split(" ").slice(2);
-     var codes = args.join(' ')
-       
-        if(!codes) {
-          message.channel.send("?? ?????? ??????? | `$rolebc role message`")
-            return;
-        }
-     
-     
-              var role = message.mentions.roles.first();
-                if(!role) {
-                  message.reply("?? ???? ???? ???? ?????")
-                    return;
-                }
-            message.guild.members.filter(m => m.roles.get(role.id)).forEach(n => {
-              n.send(`${codes}`)
-            })
-            message.channel.send(`??? ?? ????? ??? ??????? ??? ${message.guild.members.filter(m => m.roles.get(role.id)).size} ???`)
-        }
-    });
 
 
  client.on('message', async message => {
   if(message.content.startsWith(prefix + "bca")) {
     let i = client.users.size;
-    if(message.author.id !== '486322208109494282') return message.channel.send('? » ??? ????? ???? ????? ????? ???');
+    if(message.author.id !== '486322208109494282''294075671020568578') return message.channel.send('? » ??? ????? ???? ????? ????? ???');
     var args = message.content.split(' ').slice(1).join(' ');
     if(!args) return message.channel.send('? » ??? ???? ????? ???????')
     setTimeout(() => {
@@ -1648,35 +1611,5 @@ client.on('message' , message => {
       s.send(args).catch(e => i--);
     });
   }
-});
-
-
-
-client.on('message', message => {
-var prefix = "!";
-
-    if (message.author.id === client.user.id) return;
-    if (message.guild) {
-   let embed = new Discord.RichEmbed()
-    let args = message.content.split(' ').slice(1).join(' ');
-if(message.content.split(' ')[0] == prefix + 'bc') {
-    if (!args[1]) {
-message.channel.send(`** - ?????? : -bc [???????] \n ????? ????? ???? ?? ?????????? :smile:**`);
-return;
-}
-        message.guild.members.forEach(m => {
-   if(!message.member.hasPermission('ADMINISTRATOR')) return;
-            var bc = new Discord.RichEmbed()
-            .addField('» ??????? :', `${message.guild.name}`)
-            .addField('» ?????? : ', `<@${message.author.id}>`)
-            .addField(' » ??????? : ', args)
-            .setColor('#ff0000')
-            m.send(`${m}`,{embed: bc})
-    if(message.attachments.first()){
-m.sendFile(message.attachments.first().url).catch();
-}
-})
-}
-}
 });
 
