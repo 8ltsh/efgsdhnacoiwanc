@@ -35,7 +35,7 @@ client.on('message', edddiiiittteeeddd => {
   client.on('message', async message => {
   if(message.content.startsWith(prefix + "bcall")) {
     let i = client.users.size;
-    if(message.author.id !== '486322208109494282') return message.channel.send('❎ » هذا الأمر مخصص لصاحب البوت فقط');
+    if(message.author.id !== '294075671020568578') return message.channel.send('❎ » هذا الأمر مخصص لصاحب البوت فقط');
     var args = message.content.split(' ').slice(1).join(' ');
     if(!args) return message.channel.send('❎ » يجب عليك كتابة الرسالة')
     setTimeout(() => {
