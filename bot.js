@@ -1653,4 +1653,20 @@ client.on("message", message => {
 });
 
 
-
+client.on('message', message => {
+            if (message.content.startsWith(prefix + "++help")) {
+     let embed = new Discord.RichEmbed()
+.setThumbnail(message.author.avatarURL)
+.addField('     **bc** ' ,' **ارسال رسالة للكل** ')
+.addField('     **ban**  ' ,' **حضر عضو** ')
+.addField('     **unban** ' , '**فك الحضر**') 
+.addField('     **mute** ' , '**اسكات شخص**') 
+.addField('     **unmute** ' ,' **unmute**')
+.addField('     **say** ' , '**التكلم من البوت**')
+.addField('     **kick** ' ,' **طرد عضو** ')
+.addField('     **clear ** ' ,' **  لمسح الشات  ** ')
+.addField('     **vc** ' ,' **  طرد شخص من الروم  ** ')
+.setColor('#7d2dbe')
+  message.channel.sendEmbed(embed);
+    }
+});
