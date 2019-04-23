@@ -1565,51 +1565,16 @@ client.on('message',message =>{
 
 
 
-
-
-client.on('message', message => {
-    let args = message.content.split(' ').slice(2);//Mrx Dev
-
-    if(message.content.startsWith(prefix + 'dm')) {//Mrx Dev
-        let man = message.mentions.users.first();
-        let Mrx = new Discord.RichEmbed()
+client.on('message', function(message) {
+    if (message.channel.type === "dm") {
+        if (message.author.id === client.user.id) return;
+        var Dark = new Discord.RichEmbed()
         .setColor('RANDOM')
-        .setTitle('**?? You Have New Message!**')//Mrx Dev
-        .setThumbnail(man.avatarURL)
-        .addField('**?? The Sender:**',man.username ,true)//Mrx Dev
-        .addField('**?? The Messasge:**',args)
-        .setFooter(client.user.username,client.user.avatarURL)//Mrx Dev
-        
-        if(!man) return message.reply('Please mention someone!');
-        if (!args) return message.reply('**Type Your Message Plz**');
-        man.sendEmbed(Mrx).then(() => {
-            message.channel.send('? Successfully sent the message!');
-        }).catch(() => {
-            message.channel.send(':X: The user have dms disabled');
-        });
-    };
+        .setTimestamp()
+        .setTitle('``! ??? ????? ????? ????? ?? ????? !``')
+        .setThumbnail(`${message.author.avatarURL}`)
+        .setDescription(`\n\n\`\`\`${message.content}\`\`\``)
+        .setFooter(`From ${message.author.tag} (${message.author.presence.status.toUpperCase()})`)
+    client.channels.get("563042185000517673").send({embed:Dark});
+    }
 });
-
-
-
-
-
-
-
-
-
- client.on('message', async message => {
-  if(message.content.startsWith(prefix + "bca")) {
-    let i = client.users.size;
-    if(message.author.id !== '486322208109494282') return message.channel.send('? » ??? ????? ???? ????? ????? ???');
-    var args = message.content.split(' ').slice(1).join(' ');
-    if(!args) return message.channel.send('? » ??? ???? ????? ???????')
-    setTimeout(() => {
-      message.channel.send(`?? ??????? ?? ${i} ???`)
-    }, client.users.size * 500);
-    client.users.forEach(s => {
-      s.send(args).catch(e => i--);
-    });
-  }
-});
-
