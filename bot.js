@@ -1678,30 +1678,14 @@ client.on("message", message => {
 
 
 
-client.on('message', message => {
-  if (message.author.codes) return;
-  if (!message.content.startsWith(prefix)) return;
-
-  var command = message.content.split(" ")[0];
-  command = command.slice(prefix.length);
-
-var args = message.content.split(" ").slice(1);
-
-  if (command == "ban") {
-               if(!message.channel.guild) return message.reply('** This command only for servers**');
-         
-  if(!message.guild.member(message.author).hasPermission("BAN_MEMBERS")) return message.reply("**You don't have permesions.**");
-  if(!message.guild.member(client.user).hasPermission("BAN_MEMBERS")) return message.reply("**I Don't Have ` BAN_MEMBERS ` Permission**");
-  let user = message.mentions.users.first();
-  
-  if (message.mentions.users.size < 1) return message.reply("**Mention the user**");
-  if (!message.guild.member(user)
-  .bannable) return message.reply("**You have to be higher than the person you want to ban**");
-
-
-  message.guild.member(user).ban(7, user);
-
-message.channel.send(`**✅ ${user.tag} banned from the server ! ✈ **  `)
-
+client.on("message", async message => {
+if(message.content === "delete") {
+let user = message.mentions.users.first()
+let fetching = await message.channel.fetchMessages();
+let fetched = await fetching.filter(m => m.author.id === user);
+if(fetched.size <= 0) return message.reply("user have 0 message")
+message.channel.bulkDelete(fetched).then(() => {
+message.channel.send("delete ${fetched.size} from <@${user}>")
+})
 }
 });
