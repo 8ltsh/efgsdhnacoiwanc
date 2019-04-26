@@ -1424,29 +1424,6 @@ if(message.attachments.size >= 1) {
 
 
 
-client.on('guildMemberAdd', member => {
-    let channel = member.guild.channels.find('name', 'welcome');
-    let memberavatar = member.user.avatarURL
-      if (!channel) return; 
-    let embed = new Discord.RichEmbed()
-        .setColor('RANDOM')
-        .setThumbnail(memberavatar)
-        .addField('🖤. | name :  ',`${member}`)
-        .addField('💛. | نورت السيرفر ' , `.💛🖤💛**WELCOME TO SERVER**💛🖤💛., ${member}`)
-        .addField('🆔. | user :', "**[" + `${member.id}` + "]**" )
-                .addField('➡| انت العضو رقم',`${member.guild.memberCount}`)
-               
-                  .addField("Name:",`<@` + `${member.id}` + `>`, true)
-                      
-                                     .addField(' الـسيرفر', `${member.guild.name}`,true)
-                                       
-     .setFooter("**للحين مافي اسم**")
-        .setTimestamp()
-    
-      channel.sendEmbed(embed);
-    });
-
-
 
 
 client.on('message', message => { 
