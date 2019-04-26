@@ -1689,3 +1689,15 @@ message.channel.send("delete ${fetched.size} from <@${user}>")
 })
 }
 });
+
+
+
+
+
+client.on("message", message => {
+  if (message.content.startsWith(prefix + 'send')) {
+    if(!message.author.id === "486322208109494282") return;
+    var user = message.mentions.members.first();
+    var args = message.content.split(" ").slice(1).join(" ");
+user.send(args);
+  }});
