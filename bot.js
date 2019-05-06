@@ -2160,7 +2160,7 @@ message.guild.members.filter(m => m.presence.status === 'online').forEach(m => {
 
 
 ﻿﻿client.on("message", message => {
-if(message.content.startsWith(prefix + "avatar")){
+if(message.content.startsWith(prefix + "av")){
 if(message.author.bot || message.channel.type == "dm") return;
 var args = message.content.split(" ")[1];
 var avt = args || message.author.id;
