@@ -31,25 +31,6 @@ client.on('message', edddiiiittteeeddd => {
 
 
 
-
-  client.on('guildCreate', guild => {
-client.channels.get("544486231065493514").send(`:white_check_mark: **${client.user.tag} دخل سيرفر جديد
-Server name: __${guild.name}__
-Server owner: __${guild.owner}__
-Server id: __${guild.id}__ 
-Server Count: __${guild.memberCount}__**`)
-});
-client.on('guildDelete', guild => {
-  client.channels.get("544486231065493514").send(`:negative_squared_cross_mark: **${client.user.tag} طلع من سيرفر
-Server name: __${guild.name}__
-Server owner: __${guild.owner}__
-Server id: __${guild.id}__ 
-Server Count: __${guild.memberCount}__**`)
-});
-  
-
-
-
  
 
 client.on('message', message => {
@@ -303,29 +284,12 @@ client.on('message', message => {
             .addField('**Channels**📝 :' , `[ ${client.channels.size} ]` , true)
             .addField('**Users**🔮 :' ,`[ ${client.users.size} ]` , true)
             .addField('**Bot Name**🔰 :' , `[ ${client.user.tag} ]` , true)
-            .addField('**Bot Owner**👑 :' , `[<@486322208109494282>]` , true)
+            .addField('**Bot Owner**👑 :' , `[<@294075671020568578>]` , true)
             .setFooter(message.author.username, message.author.avatarURL)
     })
 }
 });
 
-client.on('message', message => {
-    var prefix = '-'
-    if (message.content.startsWith(prefix + "avatar")) {
-        var mentionned = message.mentions.users.first();
-    var x5bzm;
-      if(mentionned){
-          var x5bzm = mentionned;
-      } else {
-          var x5bzm = message.author;
-          
-      }
-        const embed = new Discord.RichEmbed()
-        .setColor("RANDOM")
-        .setImage(`${x5bzm.avatarURL}`)
-      message.channel.sendEmbed(embed);
-    }
-});
 
 client.on('message', message => {
     if (message.content === "-info.u") {
@@ -348,7 +312,7 @@ client.on('message', message => {
     }); // Toxic Code
 
 
-const devs = ['486322208109494282' , '479936779139547146' , ''];
+const devs = ['294075671020568578' , '479936779139547146' , ''];
 
 const adminprefix = "-";
 
